@@ -12,4 +12,4 @@ RUN yarn
 
 COPY . $APP/
 
-CMD ['yarn', 'run', 'dev']
+CMD ["yarn", "run", "dev"]

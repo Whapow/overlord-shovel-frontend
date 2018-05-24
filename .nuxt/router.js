@@ -3,6 +3,8 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
+const _7e24bb82 = () => import('../pages/login/index.vue' /* webpackChunkName: "pages/login/index" */).then(m => m.default || m)
+const _7e80bbf0 = () => import('../pages/campaigns/_id/shiny_pile/index.vue' /* webpackChunkName: "pages/campaigns/_id/shiny_pile/index" */).then(m => m.default || m)
 const _003ffd28 = () => import('../pages/index.vue' /* webpackChunkName: "pages/index" */).then(m => m.default || m)
 
 
@@ -63,6 +65,16 @@ export function createRouter () {
     linkExactActiveClass: 'nuxt-link-exact-active',
     scrollBehavior,
     routes: [
+		{
+			path: "/login",
+			component: _7e24bb82,
+			name: "login"
+		},
+		{
+			path: "/campaigns/:id?/shiny:pile?",
+			component: _7e80bbf0,
+			name: "campaigns-id-shinypile"
+		},
 		{
 			path: "/",
 			component: _003ffd28,

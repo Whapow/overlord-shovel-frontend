@@ -4,6 +4,7 @@
         "dev": "nuxt"
     },
     "dependencies": {
-        "nuxt": "^1.4.0"
+        "nuxt": "^1.4.0",
+        "vuedraggable": "^2.16.0"
     }
 }

@@ -3,7 +3,9 @@
     .shiny-pile-panel
       .header
         h2 {{ mockApi.campaigns[campaignId].name }}
+        i Drag items to move them to a different inventory.
       .body
+        h4 Unclaimed
         table
           tbody
             draggable.draggable(v-model="items[null]", :options="{group: 'items'}", @start="drag=true" @end="drag=false")
@@ -60,17 +62,13 @@
         }
       },
     }, 
-    computed: {
-      // items(){
-      //   groupBy(groupBy(this.mockApi.items, 'campaign_id')[this.campaignId], 'character_id')
-      // } 
-    }
   }
 </script>
 
 <style scoped>
 .shiny-pile-panel {
-  width: 50%
+  max-width: 50%;
+  min-width: 500rem
 }
 .character-inventory-panel {
   width: 50%

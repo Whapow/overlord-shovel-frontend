@@ -2,7 +2,8 @@
   div
     .navbar
       span
-        h2.title Overlord Shovel
+        router-link(to="/")
+          h2.title() Overlord Shovel
         .right
           router-link(to="/login") Login
     .container      

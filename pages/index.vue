@@ -15,6 +15,7 @@
 
 <script>
   import mocks from "~/mocks.json"
+
   export default {
     layout: 'default',
     data(){
@@ -26,7 +27,7 @@
       getPlayerName(id){
         return this.mockApi.users[id].name
       },
-    },
+    }
   }
 </script>
 

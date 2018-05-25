@@ -1,43 +1,55 @@
 <template lang='pug'>
   .shiny-pile
-    h3 Shiny Pile Here
-    table
-      thead
-        tr
-          th Name
-          th Owned By
-      tbody
-        tr(v-for="item in items")
-          td {{ item.name }}
-          td {{ getCharacterName(item.character_id) }}
     .shiny-pile-panel
       .header
         h2 {{ mockApi.campaigns[campaignId].name }}
       .body
-        p(v-for="item in items", v-if="item.character_id === null") {{ item.name }}
+        table
+          tbody
+            draggable.draggable(v-model="items[null]", :options="{group: 'items'}", @start="drag=true" @end="drag=false")
+              tr.item(v-for="item in items[null]")
+                td.column
+                  p {{ item.name }}
+                td.column
+                  i {{ item.description }}
+                td.column
+                  p {{ item.value }}
     .character-inventory-panel(v-for="character in mockApi.characters", v-if="character.campaign_id == campaignId")
       .header
         h4 {{ character.name }}
       .body
-        .item(v-for="item in items", v-if="item.character_id == character.id") 
-          p {{ item.name }}
-          i {{ item.description }}
+        table
+          tbody
+            draggable.draggable(v-model="items[character.id]", :options="{group: 'items'}", @start="drag=true" @end="drag=false")
+              tr.item(v-for="item in items[character.id]") 
+                td.column
+                  p {{ item.name }}
+                td.column
+                  i {{ item.description }}
+                td.column
+                  p {{ item.value }}
 
 </template>
 
 <script>
   import mocks from "~/mocks.json"
+  import groupBy from 'lodash/groupBy'
+  import cloneDeep from 'lodash/cloneDeep'
+  import draggable from 'vuedraggable'
+
   export default {
     layout: 'default',
     data(){
       return {
         mockApi: mocks,
         campaignId: this.$nuxt.$route.path.split('/')[2],
-        items: []
+        items: {}
       }
     },
+    components: { draggable },
     created(){
-      this.items = Object.values(mocks.items).filter(item => { return item.campaign_id == this.campaignId })
+      //  = Object.values(mocks.items).filter(item => { return item.campaign_id == this.campaignId })
+      this.items = groupBy(groupBy(this.mockApi.items, 'campaign_id')[this.campaignId] , 'character_id')
     },
     methods: {
       getCharacterName(id){
@@ -47,6 +59,11 @@
           return "None"
         }
       },
+    }, 
+    computed: {
+      // items(){
+      //   groupBy(groupBy(this.mockApi.items, 'campaign_id')[this.campaignId], 'character_id')
+      // } 
     }
   }
 </script>
@@ -57,5 +74,12 @@
 }
 .character-inventory-panel {
   width: 50%
+}
+.column {
+  padding-left: 1rem
+}
+.draggable {
+  min-height: 5rem;
+  min-width: 10rem;
 }
 </style>

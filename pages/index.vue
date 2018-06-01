@@ -1,7 +1,7 @@
 <template lang='pug'>
-  .index
+  .index.my-3
     h3 Campaigns
-    table
+    table.table.table-hover
       thead
         tr
           th Name

@@ -4,8 +4,12 @@
         "dev": "nuxt"
     },
     "dependencies": {
+        "bootstrap": "^4.1.1",
         "lodash": "^4.17.10",
+        "node-sass": "^4.9.0",
         "nuxt": "^1.4.0",
+        "pug": "^2.0.3",
+        "sass-loader": "^7.0.1",
         "vuedraggable": "^2.16.0"
     }
 }

@@ -9,7 +9,7 @@ import NuxtError from './components/nuxt-error.vue'
 import Nuxt from './components/nuxt.js'
 import App from './App.js'
 import { setContext, getLocation, getRouteData } from './utils'
-
+import Bootstrap from '~/node_modules/bootstrap/dist/css/bootstrap.css';
 
 /* Plugins */
 

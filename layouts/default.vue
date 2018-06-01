@@ -10,7 +10,7 @@
       nuxt
 </template>
 
-<style lang="css" scoped>
+<style lang="scss" scoped>
   .navbar {
     position: absolute;
     top: 0px;

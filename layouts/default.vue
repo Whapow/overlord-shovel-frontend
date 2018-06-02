@@ -5,7 +5,7 @@
       
       ul.navbar-nav
         li.nav-item.active
-          router-link.nav-link(to="/login") Login
+          router-link.nav-link(to="/login") Sign in
     .container      
       nuxt
 </template>

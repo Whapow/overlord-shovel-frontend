@@ -1,5 +1,5 @@
 <template lang='pug'>
-  .index.my-3
+  .index
     h3 Campaigns
     table.table.table-hover
       thead

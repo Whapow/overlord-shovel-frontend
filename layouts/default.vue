@@ -1,14 +1,11 @@
 <template lang='pug'>
   div
-    nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
+    nav.navbar.navbar-expand.navbar-dark.bg-dark.justify-content-between.mb-3
       router-link.navbar-brand(to="/") Overlord Shovel
-      button.navbar-toggler(type='button', data-toggle='collapse', data-target='#nav', aria-controls='navbarNavAltMarkup', aria-expanded='false', aria-label='Toggle navigation')
-        span.navbar-toggler-icon
       
-      #nav.collapse.navbar-collapse
-        ul.navbar-nav.ml-auto
-          li.nav-item.active
-            router-link.nav-link(to="/login") Login
+      ul.navbar-nav
+        li.nav-item.active
+          router-link.nav-link(to="/login") Login
     .container      
       nuxt
 </template>

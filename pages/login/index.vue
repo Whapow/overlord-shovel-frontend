@@ -1,16 +1,16 @@
 <template lang='pug'>
-  .login
-    div
+  .login.container
+    .form-group
       label Username
-      input(type='text', v-model="user.name")
-    div
+      input.form-control(type='text', v-model="user.name")
+    .form-group
       label Password
-      input(type='password', v-model="passwordEntry")
-    div
-      label Remember Me
-      input(type='checkbox')
-    div
-      button(@click="submitLogin") Login
+      input.form-control(type='password', v-model="passwordEntry")
+    .form-group.form-check
+      input.form-check-input(type='checkbox', id="checkbox")
+      label.form-check-label(for="checkbox") Remember Me
+    .form-group
+      button.btn.btn-dark.btn-block(@click="submitLogin") Login
 </template>
 
 <script>
@@ -32,3 +32,9 @@
     }
   }
 </script>
+
+<style lang="scss" scoped>
+  .login.container {
+    max-width: 25rem;
+  }
+</style>

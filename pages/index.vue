@@ -20,7 +20,7 @@
     layout: 'default',
     data(){
       return {
-        mockApi: mocks
+        mockApi: mocks.data
       }
     },
     methods: {

@@ -10,6 +10,7 @@
         "nuxt": "^1.4.0",
         "pug": "^2.0.3",
         "sass-loader": "^7.0.1",
-        "vuedraggable": "^2.16.0"
+        "vuedraggable": "^2.16.0",
+        "vuex-map-fields": "^1.2.3"
     }
 }

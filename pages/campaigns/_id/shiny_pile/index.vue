@@ -1,10 +1,5 @@
 <template lang='pug'>
-  .shiny-pile
-    button(@click="addItem") Add New Item
-    .shiny-pile-panel
-      .header
-        h2 {{ campaigns[campaignId].name }}
-        i Drag items to move them to a different inventory.
+          h2 {{ campaign.name }}
       .body
         h4 Unclaimed
         table
@@ -39,7 +34,7 @@
     components: { draggable, itemRow },
     computed: {
       ...mapGetters({items: 'items/collection'}),
-      ...mapFields(['characters', 'campaigns', 'campaignId'])
+      ...mapFields(['characters', 'campaign', 'campaignId'])
     },
     methods: {
       ...mapMutations({

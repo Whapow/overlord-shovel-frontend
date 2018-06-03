@@ -9,7 +9,8 @@ export const state = function(){
     campaignId: 3, //$nuxt.$route.path.split('/')[2]
     collection: {},
     characters: {},
-    campaigns: {}
+    campaign: {},
+    currentUser: {},
   })
 }
 
@@ -20,8 +21,8 @@ export const getters = {
 
 export const mutations = {
   updateField,
-  update(state, {object}){
-    Vue.set(state.collection, object.id, object)
+  update(state, {item}){
+    Vue.set(state.collection, item.id, item)
   },
   remove(state, id){
     Vue.delete(state.collection, id)
@@ -33,14 +34,18 @@ export const actions = {
     let response = mocks
     commit('updateField', {path: 'collection', value: {...response.data.items} })
     commit('updateField', {path: 'characters', value: response.data.characters })
-    commit('updateField', {path: 'campaigns', value: response.data.campaigns })
+    commit('updateField', {path: 'campaign', value: response.data.campaigns[3] }) // should use campaignId
+    commit('updateField', {path: 'currentUser', value: response.data.currentUser })
   },
   new({commit, state}){
     let item = {id: 0, name: null, description: null, value: 0, campaign_id: state.campaignId, character_id: null}
-    commit('update', {object: item})
+    commit('update', {item})
   },
   submit({commit, state}, {item}){
+    item.id = Math.random()*100
+    commit('update', {item})
   },
   delete({commit}, {item}) {
+    remove(item.id)
   },
 }

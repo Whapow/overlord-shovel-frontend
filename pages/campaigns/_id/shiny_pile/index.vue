@@ -2,7 +2,7 @@
   .shiny-pile
     .shiny-pile-panel
       .header
-        h2 {{ mockApi.campaigns[campaignId].name }}
+        h2 {{ campaigns[campaignId].name }}
         i Drag items to move them to a different inventory.
       .body
         h4 Unclaimed
@@ -34,33 +34,31 @@
 </template>
 
 <script>
-  import mocks from "~/mocks.json"
-  import groupBy from 'lodash/groupBy'
-  import cloneDeep from 'lodash/cloneDeep'
+  import { mapActions, mapMutations, mapGetters } from 'vuex'
+  import { createHelpers } from 'vuex-map-fields'
+  const { mapFields } = createHelpers({
+    getterType: 'items/getField'
+  }) 
+
   import draggable from 'vuedraggable'
 
   export default {
     layout: 'default',
-    data(){
-      return {
-        mockApi: mocks,
-        campaignId: this.$nuxt.$route.path.split('/')[2],
-        items: {}
-      }
-    },
-    components: { draggable },
     created(){
-      //  = Object.values(mocks.items).filter(item => { return item.campaign_id == this.campaignId })
-      this.items = groupBy(groupBy(this.mockApi.items, 'campaign_id')[this.campaignId] , 'character_id')
+      this.init();
+    },
+    computed: {
+      ...mapGetters({items: 'items/collection'}),
+      ...mapFields(['characters', 'campaigns', 'campaignId'])
     },
     methods: {
-      getCharacterName(id){
-        if (id){
-          return this.mockApi.characters[id].name
-        } else {
-          return "None"
-        }
-      },
+      ...mapMutations({
+        updateItem: 'items/update',
+        removeItem: 'items/remove',
+      }),
+      ...mapActions({
+        init: 'items/init', 
+        addItem:'items/new'}),
     }, 
   }
 </script>

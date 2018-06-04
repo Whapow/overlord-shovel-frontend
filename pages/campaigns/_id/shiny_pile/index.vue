@@ -15,8 +15,8 @@
           .body
             table.table.table-hover
               tbody
-                draggable.draggable(v-model="items[null]", :options="{group: 'items'}", @start="drag=true" @end="drag=false")
-                  item-row.item(v-for="item in items[null]", :key="item.id", :item="item")        
+                draggable.draggable(v-model="itemList[null]", :options="{group: 'items'}", :id="null", @end="moveItem")
+                  item-row.item(v-for="item in itemList[null]", :id="item.id", :key="item.id", :item="item")        
         .col-4         
           .character-inventory-panel(v-for="character in characters", v-if="character.campaign_id == campaignId")
             .header
@@ -25,8 +25,8 @@
             .body
                 table.table.table-hover
                   tbody
-                    draggable.draggable(v-model="items[character.id]", :options="{group: 'items'}", @start="drag=true" @end="drag=false")
-                      item-row.item(v-for="item in items[character.id]", :key="item.id", :item="item") 
+                    draggable.draggable(v-model="itemList[character.id]", :options="{group: 'items'}", :id="character.id", @end="moveItem")
+                      item-row.item(v-for="item in itemList[character.id]", :key="item.id", :id="item.id", :item="item") 
 </template>
 
 <script>
@@ -37,6 +37,7 @@
   }) 
 
   import draggable from 'vuedraggable'
+  import _ from 'lodash'
   import itemRow from '~/components/itemRow'
 
   export default {
@@ -47,7 +48,8 @@
     components: { draggable, itemRow },
     computed: {
       ...mapGetters({items: 'items/collection'}),
-      ...mapFields(['characters', 'campaign', 'campaignId'])
+      ...mapFields(['characters', 'campaign', 'campaignId', 'collection']),
+      itemList(){ return _.groupBy(this.items, 'character_id') }
     },
     methods: {
       ...mapMutations({
@@ -56,7 +58,14 @@
       }),
       ...mapActions({
         init: 'items/init', 
-        addItem:'items/new'}),
+        addItem:'items/new',
+        submitItem: 'items/submit'
+      }),
+      moveItem(event){
+        let {...item} = this.collection[event.item.id]
+        item.character_id = event.to.id ? Number(event.to.id) : null
+        this.submitItem({item})
+      }
     }, 
   }
 </script>

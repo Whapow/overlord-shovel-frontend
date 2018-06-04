@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import groupBy from 'lodash/groupBy'
+import _ from 'lodash'
 import { getField, updateField } from 'vuex-map-fields'
 
 import mocks from "~/mocks.json"
@@ -16,7 +16,7 @@ export const state = function(){
 
 export const getters = {
   getField,
-  collection: state => { return groupBy(groupBy(state.collection, 'campaign_id')[state.campaignId] , 'character_id')}
+  collection: state => { return _.filter(state.collection, {'campaign_id': state.campaignId})}
 }
 
 export const mutations = {
@@ -42,7 +42,7 @@ export const actions = {
     commit('update', {item})
   },
   submit({commit, state}, {item}){
-    item.id = Math.random()*100
+    if (item.id == 0){item.id = Math.random()*100}
     commit('update', {item})
   },
   delete({commit}, {item}) {

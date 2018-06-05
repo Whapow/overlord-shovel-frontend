@@ -6,11 +6,14 @@
         tr
           th Name
           th GM
+          th
       tbody
         tr(v-for="campaign in mockApi.campaigns", :key="campaign.id")
-          td 
-            router-link(:to="`/campaigns/${campaign.id}/shiny_pile`") {{ campaign.name }}
+          td {{ campaign.name }}
           td {{ getPlayerName(campaign.gm_id) }}
+          td
+            router-link.btn.btn-light(:to="`/campaigns/${campaign.id}/journals`") Journals
+            router-link.btn.btn-light(:to="`/campaigns/${campaign.id}/shiny_pile`") Shiny Pile
 </template>
 
 <script>

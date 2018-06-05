@@ -4,6 +4,8 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 const _7e24bb82 = () => import('../pages/login/index.vue' /* webpackChunkName: "pages/login/index" */).then(m => m.default || m)
+const _35c53f4c = () => import('../pages/campaigns/_id/journals/index.vue' /* webpackChunkName: "pages/campaigns/_id/journals/index" */).then(m => m.default || m)
+const _598a8376 = () => import('../pages/campaigns/_id/journals/_id/index.vue' /* webpackChunkName: "pages/campaigns/_id/journals/_id/index" */).then(m => m.default || m)
 const _7e80bbf0 = () => import('../pages/campaigns/_id/shiny_pile/index.vue' /* webpackChunkName: "pages/campaigns/_id/shiny_pile/index" */).then(m => m.default || m)
 const _003ffd28 = () => import('../pages/index.vue' /* webpackChunkName: "pages/index" */).then(m => m.default || m)
 
@@ -69,6 +71,16 @@ export function createRouter () {
 			path: "/login",
 			component: _7e24bb82,
 			name: "login"
+		},
+		{
+			path: "/campaigns/:id?/journals",
+			component: _35c53f4c,
+			name: "campaigns-id-journals"
+		},
+		{
+			path: "/campaigns/:id?/journals/:id",
+			component: _598a8376,
+			name: "campaigns-id-journals-id"
 		},
 		{
 			path: "/campaigns/:id?/shiny:pile?",

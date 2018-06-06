@@ -3,10 +3,10 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-const _7e24bb82 = () => import('../pages/login/index.vue' /* webpackChunkName: "pages/login/index" */).then(m => m.default || m)
-const _35c53f4c = () => import('../pages/campaigns/_id/journals/index.vue' /* webpackChunkName: "pages/campaigns/_id/journals/index" */).then(m => m.default || m)
-const _598a8376 = () => import('../pages/campaigns/_id/journals/_id/index.vue' /* webpackChunkName: "pages/campaigns/_id/journals/_id/index" */).then(m => m.default || m)
-const _7e80bbf0 = () => import('../pages/campaigns/_id/shiny_pile/index.vue' /* webpackChunkName: "pages/campaigns/_id/shiny_pile/index" */).then(m => m.default || m)
+const _6c30bf82 = () => import('../pages/login.vue' /* webpackChunkName: "pages/login" */).then(m => m.default || m)
+const _6e12c717 = () => import('../pages/campaigns/_id/journals.vue' /* webpackChunkName: "pages/campaigns/_id/journals" */).then(m => m.default || m)
+const _c5489d7c = () => import('../pages/campaigns/_id/journals/_id.vue' /* webpackChunkName: "pages/campaigns/_id/journals/_id" */).then(m => m.default || m)
+const _3db00b2d = () => import('../pages/campaigns/_id/shiny_pile.vue' /* webpackChunkName: "pages/campaigns/_id/shiny_pile" */).then(m => m.default || m)
 const _003ffd28 = () => import('../pages/index.vue' /* webpackChunkName: "pages/index" */).then(m => m.default || m)
 
 
@@ -69,22 +69,24 @@ export function createRouter () {
     routes: [
 		{
 			path: "/login",
-			component: _7e24bb82,
+			component: _6c30bf82,
 			name: "login"
 		},
 		{
 			path: "/campaigns/:id?/journals",
-			component: _35c53f4c,
-			name: "campaigns-id-journals"
-		},
-		{
-			path: "/campaigns/:id?/journals/:id",
-			component: _598a8376,
-			name: "campaigns-id-journals-id"
+			component: _6e12c717,
+			name: "campaigns-id-journals",
+			children: [
+				{
+					path: ":id?",
+					component: _c5489d7c,
+					name: "campaigns-id-journals-id"
+				}
+			]
 		},
 		{
 			path: "/campaigns/:id?/shiny:pile?",
-			component: _7e80bbf0,
+			component: _3db00b2d,
 			name: "campaigns-id-shinypile"
 		},
 		{

@@ -8,7 +8,7 @@
           th  Reward Value
           th  Experience
       tbody
-        journal-entry-row(v-for="entry in journal.entries", :entry="entry")  
+        journal-entry-row(v-for="entry in journal.entries", :key="entry.id", :entry="entry")  
 </template>
 
 <script>

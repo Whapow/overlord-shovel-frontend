@@ -16,7 +16,8 @@ export const state = function(){
 
 export const getters = {
   getField,
-  collection: state => { return _.filter(state.collection, {'campaign_id': state.campaignId})}
+  // collection: state => { return _.filter(state.collection, {'campaign_id': state.campaignId})}
+  collection: state => { return state.collection }
 }
 
 export const mutations = {

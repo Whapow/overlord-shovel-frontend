@@ -26,7 +26,7 @@
       }
     },
     mounted(){
-      this.campaign.id = $nuxt.$route.path.split('/')[2]
+      this.campaign.id = this.$route.params.campaign_id
     }
   }
 </script>

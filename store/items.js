@@ -6,7 +6,7 @@ import mocks from "~/mocks.json"
 
 export const state = function(){
   return ({
-    campaignId: 3, //$nuxt.$route.path.split('/')[2]
+    campaignId: null,
     collection: {},
     characters: {},
     campaign: {},
@@ -30,11 +30,13 @@ export const mutations = {
 }
 
 export const actions = {
-  async init({commit}){
+  async init({commit}, params){
+    let campaignId = params.campaign_id
+    commit('updateField', {path: 'campaignId', value: campaignId })    
     let response = mocks
     commit('updateField', {path: 'collection', value: {...response.data.items} })
     commit('updateField', {path: 'characters', value: response.data.characters })
-    commit('updateField', {path: 'campaign', value: response.data.campaigns[3] }) // should use campaignId
+    commit('updateField', {path: 'campaign', value: response.data.campaigns[campaignId] }) // should use campaignId
     commit('updateField', {path: 'currentUser', value: response.data.currentUser })
   },
   new({commit, state}){

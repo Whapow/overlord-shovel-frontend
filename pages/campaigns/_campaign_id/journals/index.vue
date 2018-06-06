@@ -33,8 +33,8 @@
       ...mapGetters({journals: 'journals/collection'}),
       ...mapFields(['campaign'])
     },
-    mounted(){
-      this.init($nuxt.$route.path);
+    created(){
+      this.init(this.$route.params);
     }
   }
 </script>

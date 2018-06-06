@@ -4,7 +4,7 @@
       .row
         .title
           h2 {{ campaign.name }}
-          i Drag items to move them to a different inventory. (Temporarily broken)
+          i Drag items to move them to a different inventory.
       .row
         .col-8.shiny-pile-panel
           .header.row
@@ -43,7 +43,7 @@
   export default {
     layout: 'default',
     created(){
-      this.init();
+      this.init(this.$route.params);
     },
     components: { draggable, itemRow },
     computed: {

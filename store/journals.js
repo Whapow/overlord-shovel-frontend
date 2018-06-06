@@ -31,9 +31,8 @@ export const mutations = {
 }
 
 export const actions = {
-  async init({commit}, url){
-    let campaignId = url.split('/')[2]
-    // console.log("Context: ", $context)
+  async init({commit}, params){
+    let campaignId = params.campaign_id
     commit('updateField', {path: 'campaignId', value: campaignId })
     let response = mocks
     commit('updateField', {path: 'collection', value: {...response.data.journals} })

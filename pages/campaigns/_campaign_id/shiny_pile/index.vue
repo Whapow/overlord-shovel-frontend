@@ -5,12 +5,15 @@
         .title
           h2 {{ campaign.name }}
           i Drag items to move them to a different inventory.
+          p Total: {{ items | totalValue }}
       .row
         .col-8.shiny-pile-panel
           .header.row
-            .col-2
-              h4 Unclaimed
             .col-4
+              h4 Unclaimed
+            .col-2
+                p {{ itemList[null] | totalValue }}g
+            .col-2
               button.btn.btn-light.add-new-item(@click="addItem") Add New Item
           .body
             table.table.table-hover
@@ -21,7 +24,10 @@
           .character-inventory-panel(v-for="character in characters", v-if="character.campaign_id == campaignId")
             .header
               .row
-                h4 {{ character.name }}
+                .col-6
+                  h4 {{ character.name }}
+                .col-3
+                  p {{ itemList[character.id] | totalValue }}g
             .body
                 table.table.table-hover
                   tbody
@@ -50,6 +56,16 @@
       ...mapGetters({items: 'items/collection'}),
       ...mapFields(['characters', 'campaign', 'campaignId', 'collection']),
       itemList(){ return _.groupBy(this.items, 'character_id') }
+    },
+    filters: {
+      totalValue(collection){ 
+        let array = Object.values(collection)
+        let total = 0
+        array.forEach(function(obj){
+          total += Number(obj.value)
+        })
+        return total
+      }
     },
     methods: {
       ...mapMutations({

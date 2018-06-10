@@ -1,0 +1,83 @@
+<template lang='pug'>
+  tr.item
+    template(v-if="editing")
+      td.column
+        input(type='text', v-model.trim="formData.name")
+      td.column
+        input(type='text', v-model.trim="formData.description")
+      td.column
+        input(type='text', v-model.number="formData.value")
+      td
+        button.btn.btn-primary(@click="save") Save
+        button.btn.btn-light(@click="cancel") Cancel
+    template(v-else)
+      td.column
+        p {{ item.name }}
+      td.column
+        i {{ item.description }}
+      td.column
+        p {{ item.value }}
+      td
+        button.btn.btn-light(v-if="currentUser.id == campaign.gm_id", @click="setEditing(true)") Edit
+</template>
+
+<script>
+  import _ from 'lodash'
+  import { mapMutations, mapActions } from 'vuex'
+  import { createHelpers } from 'vuex-map-fields'
+  const { mapFields } = createHelpers({
+    getterType: 'items/getField'
+  }) 
+
+  export default {
+    props: ['item'],
+    data(){
+      return {
+        editing: false
+      }
+    },
+    created(){
+      if (this.item.id == 0){this.setEditing(true)}
+    },
+    computed: {
+      ...mapFields(['campaign', 'currentUser']),
+    },
+    methods: {
+      setEditing(value){
+        this.editing = value
+        if (value){ this.formData = _.cloneDeep(this.item) }
+      },
+      ...mapMutations({
+        updateItem: 'items/update',
+        removeItem: 'items/remove'
+      }),
+      ...mapActions({
+        submitItem: 'items/submit'
+      }),
+      save(){
+        if (this.formData.name && this.formData.description && this.formData.value >= 0 ){
+          if(this.item.id == 0) {
+            this.submitItem({item: this.formData})
+            this.removeItem(0)
+          } else {
+            this.updateItem({item: this.formData})
+            this.setEditing(false)
+          }
+        }
+      },
+      cancel(){
+        if(this.item.id == 0){
+          this.removeItem(0)
+        } else {
+          this.setEditing(false)
+        }
+      }
+    }
+  }
+</script>
+
+<style lang="scss" scoped>
+.column {
+  padding-left: 1rem
+}
+</style>

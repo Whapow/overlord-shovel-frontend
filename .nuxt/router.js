@@ -3,7 +3,11 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-const _3d3cd627 = () => import('../pages/index.vue' /* webpackChunkName: "pages/index" */).then(m => m.default || m)
+const _7e24bb82 = () => import('../pages/login/index.vue' /* webpackChunkName: "pages/login/index" */).then(m => m.default || m)
+const _5fd765ed = () => import('../pages/campaigns/_campaign_id/journals/index.vue' /* webpackChunkName: "pages/campaigns/_campaign_id/journals/index" */).then(m => m.default || m)
+const _6d3e2c60 = () => import('../pages/campaigns/_campaign_id/journals/_journal_id/index.vue' /* webpackChunkName: "pages/campaigns/_campaign_id/journals/_journal_id/index" */).then(m => m.default || m)
+const _32cfa8c3 = () => import('../pages/campaigns/_campaign_id/shiny_pile/index.vue' /* webpackChunkName: "pages/campaigns/_campaign_id/shiny_pile/index" */).then(m => m.default || m)
+const _003ffd28 = () => import('../pages/index.vue' /* webpackChunkName: "pages/index" */).then(m => m.default || m)
 
 
 
@@ -64,8 +68,28 @@ export function createRouter () {
     scrollBehavior,
     routes: [
 		{
+			path: "/login",
+			component: _7e24bb82,
+			name: "login"
+		},
+		{
+			path: "/campaigns/:campaign_id?/journals",
+			component: _5fd765ed,
+			name: "campaigns-campaign_id-journals"
+		},
+		{
+			path: "/campaigns/:campaign_id?/journals/:journal_id",
+			component: _6d3e2c60,
+			name: "campaigns-campaign_id-journals-journal_id"
+		},
+		{
+			path: "/campaigns/:campaign_id?/shiny:pile?",
+			component: _32cfa8c3,
+			name: "campaigns-campaign_id-shinypile"
+		},
+		{
 			path: "/",
-			component: _3d3cd627,
+			component: _003ffd28,
 			name: "index"
 		}
     ],

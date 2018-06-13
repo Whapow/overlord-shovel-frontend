@@ -19,6 +19,7 @@
         p {{ item.value }}
       td
         button.btn.btn-light(v-if="currentUser.id == campaign.gm_id", @click="setEditing(true)") Edit
+        button.btn.btn-danger(v-if="currentUser.id == campaign.gm_id", @click="confirmDelete") Delete
 </template>
 
 <script>
@@ -52,7 +53,8 @@
         removeItem: 'items/remove'
       }),
       ...mapActions({
-        submitItem: 'items/submit'
+        submitItem: 'items/submit',
+        deleteItem: 'items/delete'
       }),
       save(){
         if (this.formData.name && this.formData.description && this.formData.value >= 0 ){
@@ -70,6 +72,11 @@
           this.removeItem(0)
         } else {
           this.setEditing(false)
+        }
+      },
+      confirmDelete(){
+        if (confirm("Are you sure?")){
+          this.deleteItem({item: this.item})
         }
       }
     }

@@ -16,7 +16,7 @@ export const state = function(){
 
 export const getters = {
   getField,
-  collection: state => { return _.filter(state.collection, {'campaign_id': Number(state.campaignId)})}
+  collection: state => { return _.filter(state.collection, {'campaign_id': state.campaignId})}
 }
 
 export const mutations = {
@@ -31,7 +31,7 @@ export const mutations = {
 
 export const actions = {
   async init({commit}, params){
-    let campaignId = params.campaign_id
+    let campaignId = Number(params.campaign_id)
     commit('updateField', {path: 'campaignId', value: campaignId })    
     let response = mocks
     this.$axios.get(`/api/campaigns/${campaignId}/items`).then(response => {
@@ -47,10 +47,24 @@ export const actions = {
     commit('update', {item})
   },
   submit({commit, state}, {item}){
-    if (item.id == 0){item.id = Math.random()*100}
-    commit('update', {item})
+    let saveItem = (response)=>{
+      let item = response.data.data.attributes
+      commit('update', {item})
+    }
+    if (item.id == 0){
+      this.$axios.post('/api/items', item).then(response => {
+        saveItem(response)
+        commit('remove', item.id)
+      })
+    } else {
+      this.$axios.patch('/api/items/' + item.id, item).then(response => {
+        saveItem(response)
+      })
+    }
   },
   delete({commit}, {item}) {
-    remove(item.id)
+    this.$axios.delete('/api/items/' + item.id).then(response => {
+      commit('remove', item.id)
+    })
   },
 }

@@ -59,11 +59,13 @@
     },
     filters: {
       totalValue(collection){ 
-        let array = Object.values(collection)
         let total = 0
-        array.forEach(function(obj){
-          total += Number(obj.value)
-        })
+        if (collection){
+          let array = Object.values(collection)
+          array.forEach(function(obj){
+            total += Number(obj.value)
+          })
+        }
         return total
       }
     },

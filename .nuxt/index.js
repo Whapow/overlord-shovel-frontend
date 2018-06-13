@@ -9,10 +9,10 @@ import NuxtError from './components/nuxt-error.vue'
 import Nuxt from './components/nuxt.js'
 import App from './App.js'
 import { setContext, getLocation, getRouteData } from './utils'
-import Bootstrap from '~/node_modules/bootstrap/dist/css/bootstrap.css';
 import { createStore } from './store.js'
 
 /* Plugins */
+import nuxt_plugin_axios_27cbc3c4 from 'nuxt_plugin_axios_27cbc3c4' // Source: ./axios.js
 
 
 // Component: <no-ssr>
@@ -151,6 +151,7 @@ async function createApp (ssrContext) {
 
   // Plugin execution
   
+  if (typeof nuxt_plugin_axios_27cbc3c4 === 'function') await nuxt_plugin_axios_27cbc3c4(app.context, inject)
   
 
   // If server-side, wait for async component to be resolved first

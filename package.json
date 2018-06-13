@@ -4,6 +4,7 @@
         "dev": "nuxt"
     },
     "dependencies": {
+        "@nuxtjs/axios": "^5.3.1",
         "bootstrap": "^4.1.1",
         "lodash": "^4.17.10",
         "node-sass": "^4.9.0",
@@ -11,6 +12,7 @@
         "pug": "^2.0.3",
         "sass-loader": "^7.0.1",
         "vuedraggable": "^2.16.0",
+        "vuex": "^3.0.1",
         "vuex-map-fields": "^1.2.3"
     }
 }

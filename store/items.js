@@ -16,7 +16,7 @@ export const state = function(){
 
 export const getters = {
   getField,
-  collection: state => { return _.filter(state.collection, {'campaign_id': state.campaignId})}
+  collection: state => { return _.filter(state.collection, {'campaign_id': Number(state.campaignId)})}
 }
 
 export const mutations = {
@@ -34,7 +34,10 @@ export const actions = {
     let campaignId = params.campaign_id
     commit('updateField', {path: 'campaignId', value: campaignId })    
     let response = mocks
-    commit('updateField', {path: 'collection', value: {...response.data.items} })
+    this.$axios.get(`/api/campaigns/${campaignId}/items`).then(response => {
+      let items = Object.assign({}, ...response.data.data.map(i => {return {[i.id]: i.attributes} }) )
+      commit('updateField', {path: 'collection', value: items })
+    })
     commit('updateField', {path: 'characters', value: response.data.characters })
     commit('updateField', {path: 'campaign', value: response.data.campaigns[campaignId] }) // should use campaignId
     commit('updateField', {path: 'currentUser', value: response.data.currentUser })

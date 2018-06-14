@@ -10,29 +10,23 @@
       tbody
         tr(v-for="campaign in campaigns", :key="campaign.id")
           td {{ campaign.name }}
-          td {{ getPlayerName(campaign.gm_id) }}
+          td {{ campaign.gm_id | playerName }}
           td
             router-link.btn.btn-light(:to="`/campaigns/${campaign.id}/journals`") Journals
             router-link.btn.btn-light(:to="`/campaigns/${campaign.id}/shiny_pile`") Shiny Pile
 </template>
 
 <script>
-  import mocks from "~/mocks.json"
   import { mapGetters } from 'vuex'
 
   export default {
     layout: 'default',
-    data(){
-      return {
-        mockApi: mocks.data
-      }
-    },
     computed: {
-      ...mapGetters({campaigns: 'campaigns/collection'})
+      ...mapGetters({campaigns: 'campaigns/collection', users: 'users/collection'})
     },
-    methods: {
-      getPlayerName(id){
-        return this.mockApi.users[id].name
+    filters: {
+      playerName(id){
+        return this.users[id].name
       },
     }
   }

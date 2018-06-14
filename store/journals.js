@@ -2,8 +2,6 @@ import Vue from 'vue'
 import _ from 'lodash'
 import { getField, updateField } from 'vuex-map-fields'
 
-import mocks from "~/mocks.json"
-
 export const state = function(){
   return ({
     campaignId: null,
@@ -16,8 +14,7 @@ export const state = function(){
 
 export const getters = {
   getField,
-  // collection: state => { return _.filter(state.collection, {'campaign_id': state.campaignId})}
-  collection: state => { return state.collection }
+  collection: state => { return _.filter(state.collection, {'campaign_id': state.campaignId})}
 }
 
 export const mutations = {
@@ -32,13 +29,10 @@ export const mutations = {
 
 export const actions = {
   async init({commit}, params){
-    let campaignId = params.campaign_id
+    let campaignId = Number(params.campaign_id)
     commit('updateField', {path: 'campaignId', value: campaignId })
-    let response = mocks
     commit('updateField', {path: 'collection', value: {...response.data.journals} })
-    commit('updateField', {path: 'characters', value: response.data.characters })
     commit('updateField', {path: 'campaign', value: response.data.campaigns[campaignId] })
-    commit('updateField', {path: 'currentUser', value: response.data.currentUser })
 
   },
   new({commit, state}){

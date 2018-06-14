@@ -29,15 +29,4 @@ export const actions = {
       commit('updateField', {path: 'collection', value: characters })
     })
   },
-  // new({commit, state}){
-  //   let character = {id: 0, name: null, gm_id: null}
-  //   commit('update', {character})
-  // },
-  // submit({commit, state}, {character}){
-  //   if (character.id == 0){character.id = Math.random()*100}
-  //   commit('update', {character})
-  // },
-  // delete({commit}, {character}) {
-  //   remove(character.id)
-  // },
 }

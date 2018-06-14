@@ -9,7 +9,7 @@ export const state = function(){
 
 export const getters = {
   getField,
-  session: state => { return state.currentUser }
+  currentUser: state => { return state.currentUser }
 }
 
 export const mutations = {

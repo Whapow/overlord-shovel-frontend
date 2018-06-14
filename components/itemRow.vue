@@ -18,8 +18,9 @@
       td.column
         p {{ item.value }}
       td
-        button.btn.btn-light(v-if="currentUser.id == campaign.gm_id", @click="setEditing(true)") Edit
-        button.btn.btn-danger(v-if="currentUser.id == campaign.gm_id", @click="confirmDelete") Delete
+        template(v-if="currentUser.id == campaign.gm_id")
+          button.btn.btn-light(@click="setEditing(true)") Edit
+          button.btn.btn-danger(@click="confirmDelete") Delete
 </template>
 
 <script>
@@ -41,8 +42,8 @@
       if (this.item.id == 0){this.setEditing(true)}
     },
     computed: {
-      ...mapFields(['currentUser', 'campaignId']),
-      ...mapGetters({campaigns: 'campaigns/collection'}),
+      ...mapFields(['campaignId']),
+      ...mapGetters({campaigns: 'campaigns/collection', currentUser: 'session/currentUser'}),
       campaign(){ return this.campaigns[this.campaignId] }
     },
     methods: {

@@ -46,7 +46,6 @@ export const actions = {
     if (item.id == 0){
       this.$axios.post('/api/items', item).then(response => {
         saveItem(response)
-        commit('remove', item.id)
       })
     } else { 
       this.$axios.patch('/api/items/' + item.id, item).then(response => {

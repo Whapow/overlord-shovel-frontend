@@ -10,7 +10,7 @@
       tbody
         tr(v-for="campaign in campaigns", :key="campaign.id")
           td {{ campaign.name }}
-          td {{ campaign.gm_id | playerName }}
+          td {{ playerName(campaign.gm_id) }}
           td
             router-link.btn.btn-light(:to="`/campaigns/${campaign.id}/journals`") Journals
             router-link.btn.btn-light(:to="`/campaigns/${campaign.id}/shiny_pile`") Shiny Pile
@@ -21,10 +21,17 @@
 
   export default {
     layout: 'default',
-    computed: {
-      ...mapGetters({campaigns: 'campaigns/collection', users: 'users/collection'})
+    data(){
+      return {
+        campaignId: this.$route.params.campaign_id
+      }
     },
-    filters: {
+    computed: {
+      ...mapGetters({campaigns: 'campaigns/collection'}),
+      users(){return {1:{name: 'Joshua'}, 2:{name: "Jessica"}, 3:{name: "Evan"}, 4:{name: "Weston"} }},
+      campaign(){ return this.campaigns[this.campaignId] }
+    },
+    methods: {
       playerName(id){
         return this.users[id].name
       },

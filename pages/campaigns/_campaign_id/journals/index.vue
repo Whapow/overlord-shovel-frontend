@@ -9,7 +9,7 @@
       tbody
         tr(v-for="journal in journals")
           td
-            router-link(:to="`/campaigns/${campaign.id}/journals/${journal.id}/`") {{ journal.name }}
+            router-link(:to="`/campaigns/${campaignId}/journals/${journal.id}/`") {{ journal.name }}
         tr
           td
             a(href="#", @click.prevent="newJournal") Add New
@@ -23,6 +23,11 @@
   }) 
 
   export default {
+    data(){
+      return {
+        campaignId: this.$route.params.campaign_id
+      }
+    },
     methods: {
       ...mapActions({
         init: 'journals/init',
@@ -30,8 +35,8 @@
       })
     },
     computed:{
-      ...mapGetters({journals: 'journals/collection'}),
-      ...mapFields(['campaign'])
+      ...mapGetters({journals: 'journals/collection', campaigns: 'campaigns/collection'}),
+      campaign(){ return this.campaigns[this.campaignId] }
     },
     created(){
       this.init(this.$route.params);

@@ -6,9 +6,6 @@ export const state = function(){
   return ({
     campaignId: null,
     collection: {},
-    characters: {},
-    campaign: {},
-    currentUser: {},
   })
 }
 
@@ -31,12 +28,13 @@ export const actions = {
   async init({commit}, params){
     let campaignId = Number(params.campaign_id)
     commit('updateField', {path: 'campaignId', value: campaignId })
-    commit('updateField', {path: 'collection', value: {...response.data.journals} })
-    commit('updateField', {path: 'campaign', value: response.data.campaigns[campaignId] })
-
+    this.$axios.get(`/api/campaigns/${campaignId}/journals`).then(response => {
+      let journals = Object.assign({}, ...response.data.data.map(j => {return {[j.id]: j.attributes} }) )
+      commit('updateField', {path: 'collection', value: journals })
+    })
   },
   new({commit, state}){
-    let journal = {id: 0, name: null}
+    let journal = {id: 0, name: null, campaign_id: state.campaignId}
     commit('update', {journal})
   },
   submit({commit, state}, {journal}){

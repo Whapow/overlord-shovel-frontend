@@ -24,7 +24,7 @@
 
 <script>
   import _ from 'lodash'
-  import { mapMutations, mapActions } from 'vuex'
+  import { mapMutations, mapActions, mapGetters } from 'vuex'
   import { createHelpers } from 'vuex-map-fields'
   const { mapFields } = createHelpers({
     getterType: 'items/getField'
@@ -41,7 +41,9 @@
       if (this.item.id == 0){this.setEditing(true)}
     },
     computed: {
-      ...mapFields(['campaign', 'currentUser']),
+      ...mapFields(['currentUser', 'campaignId']),
+      ...mapGetters({campaigns: 'campaigns/collection'}),
+      campaign(){ return this.campaigns[this.campaignId] }
     },
     methods: {
       setEditing(value){

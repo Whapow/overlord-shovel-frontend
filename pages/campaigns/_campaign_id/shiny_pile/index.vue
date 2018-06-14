@@ -50,12 +50,14 @@
     layout: 'default',
     created(){
       this.init(this.$route.params);
+      this.loadCharacters()
     },
     components: { draggable, itemRow },
     computed: {
-      ...mapGetters({items: 'items/collection'}),
-      ...mapFields(['characters', 'campaign', 'campaignId', 'collection']),
-      itemList(){ return _.groupBy(this.items, 'character_id') }
+      ...mapGetters({items: 'items/collection', campaigns: 'campaigns/collection', characters: 'characters/collection'}),
+      ...mapFields(['campaignId', 'collection']),
+      itemList(){ return _.groupBy(this.items, 'character_id') },
+      campaign(){ return this.campaigns[this.campaignId] }
     },
     filters: {
       totalValue(collection){ 
@@ -77,7 +79,8 @@
       ...mapActions({
         init: 'items/init', 
         addItem:'items/new',
-        submitItem: 'items/submit'
+        submitItem: 'items/submit',
+        loadCharacters: 'characters/init'
       }),
       moveItem(event){
         let {...item} = this.collection[event.item.id]

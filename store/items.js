@@ -8,8 +8,6 @@ export const state = function(){
   return ({
     campaignId: null,
     collection: {},
-    characters: {},
-    campaign: {},
     currentUser: {},
   })
 }
@@ -38,8 +36,6 @@ export const actions = {
       let items = Object.assign({}, ...response.data.data.map(i => {return {[i.id]: i.attributes} }) )
       commit('updateField', {path: 'collection', value: items })
     })
-    commit('updateField', {path: 'characters', value: response.data.characters })
-    commit('updateField', {path: 'campaign', value: response.data.campaigns[campaignId] }) // should use campaignId
     commit('updateField', {path: 'currentUser', value: response.data.currentUser })
   },
   new({commit, state}){
@@ -56,7 +52,7 @@ export const actions = {
         saveItem(response)
         commit('remove', item.id)
       })
-    } else {
+    } else { 
       this.$axios.patch('/api/items/' + item.id, item).then(response => {
         saveItem(response)
       })

@@ -1,6 +1,6 @@
 <template lang="pug">
   .journal
-    router-link.btn.btn-light(:to="`/campaigns/${campaign.id}/journals`") Back to Journals
+    router-link.btn.btn-light(:to="`/campaigns/${campaignId}/journals`") Back to Journals
     table.table.table-hover
       thead
         tr
@@ -8,25 +8,36 @@
           th  Reward Value
           th  Experience
       tbody
-        journal-entry-row(v-for="entry in journal.entries", :key="entry.id", :entry="entry")  
+        journal-entry-row(v-for="entry in entries", :key="entry.id", :entry="entry")
+        tr
+          td
+            button.btn.btn-light(@click="newEntry") Add New
 </template>
 
 <script>
+  import { mapGetters, mapActions } from 'vuex'
   import journalEntryRow from '~/components/journalEntryRow.vue'
   export default {
     components: { journalEntryRow },
     data(){
       return {
-        campaign: {
-          id: null
-        },
-        journal: {
-          entries: [1,2,3,4]
-        }
+        campaignId: this.$route.params.campaign_id
       }
     },
-    mounted(){
-      this.campaign.id = this.$route.params.campaign_id
+    computed: {
+      ...mapGetters({entries: 'entries/collection'})
+    },
+    created(){
+      this.loadEntries(this.$route.params)
+      this.loadCharacters(this.$route.params)
+
+    },
+    methods: {
+      ...mapActions({
+        loadEntries: 'entries/init', 
+        loadCharacters: 'characters/init',
+        newEntry: 'entries/new',  
+      })
     }
   }
 </script>

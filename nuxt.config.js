@@ -4,9 +4,7 @@ module.exports = {
     'bootstrap-vue/nuxt'
   ],
   axios: {
-    proxy: true
-  },
-  proxy: {
-    '/api/': {target: 'http://localhost:3001', pathRewrite: {'^/api/':''} }
+    host: 'localhost',
+    port: 3001
   }
 }

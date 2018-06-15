@@ -28,7 +28,7 @@ export const actions = {
   async init({commit}, params){
     let campaignId = Number(params.campaign_id)
     commit('updateField', {path: 'campaignId', value: campaignId })
-    await this.$axios.get(`/api/campaigns/${campaignId}/journals`).then(response => {
+    await this.$axios.get(`/campaigns/${campaignId}/journals`).then(response => {
       let journals = Object.assign({}, ...response.data.data.map(j => {return {[j.id]: j.attributes} }) )
       commit('updateField', {path: 'collection', value: journals })
     })
@@ -43,17 +43,17 @@ export const actions = {
       commit('update', {journal})
     }
     if (journal.id == 0){
-      this.$axios.post('/api/journals', journal).then(response => {
+      this.$axios.post('/journals', journal).then(response => {
         saveJournal(response)
       })
     } else {
-      this.$axios.patch('/api/journals/' + journal.id).then( response => {
+      this.$axios.patch('/journals/' + journal.id).then( response => {
         saveJournal(response)
       })
     }
   },
   delete({commit}, {journal}) {
-    this.$axios.delete('/api/journals/' + journal.id).then(response => {
+    this.$axios.delete('/journals/' + journal.id).then(response => {
       commit('remove', journal.id)
     })
   },

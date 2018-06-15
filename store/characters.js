@@ -24,7 +24,7 @@ export const mutations = {
 
 export const actions = {
   async init({commit}, params){
-    await this.$axios.get('/api/characters').then(response => {
+    await this.$axios.get('/characters').then(response => {
       let characters = Object.assign({}, ...response.data.data.map(c => {return {[c.id]: c.attributes} }) )
       commit('updateField', {path: 'collection', value: characters })
     })

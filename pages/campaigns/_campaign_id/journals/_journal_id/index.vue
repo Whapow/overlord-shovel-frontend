@@ -16,7 +16,7 @@
 
 <script>
   import { mapGetters, mapActions } from 'vuex'
-  import journalEntryRow from '~/components/journalEntryRow.vue'
+  import journalEntryRow from '~/components/journalEntryRow'
   export default {
     components: { journalEntryRow },
     data(){

@@ -7,9 +7,7 @@
         tr
           th Journal Name
       tbody
-        tr(v-for="journal in journals")
-          td
-            router-link(:to="`/campaigns/${campaignId}/journals/${journal.id}/`") {{ journal.name }}
+        journal-row(v-for="journal in journals", :key="journal.id", :journal="journal")
         tr
           td
             a(href="#", @click.prevent="newJournal") Add New
@@ -22,7 +20,10 @@
     getterType: 'journals/getField'
   }) 
 
+  import JournalRow from '~/components/journalRow'
+
   export default {
+    components: {JournalRow},
     data(){
       return {
         campaignId: this.$route.params.campaign_id

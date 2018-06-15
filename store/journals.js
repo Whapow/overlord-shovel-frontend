@@ -37,11 +37,24 @@ export const actions = {
     let journal = {id: 0, name: null, campaign_id: state.campaignId}
     commit('update', {journal})
   },
-  submit({commit, state}, {journal}){
-    if (journal.id == 0){journal.id = Math.random()*100}
-    commit('update', {journal})
+  submit({commit, dispatch, state}, {journal}){
+    let saveJournal = (response)=>{
+      let journal = response.data.data.attributes
+      commit('update', {journal})
+    }
+    if (journal.id == 0){
+      this.$axios.post('/api/journals', journal).then(response => {
+        saveJournal(response)
+      })
+    } else {
+      this.$axios.patch('/api/journals/' + journal.id).then( response => {
+        saveJournal(response)
+      })
+    }
   },
   delete({commit}, {journal}) {
-    remove(journal.id)
+    this.$axios.delete('/api/journals/' + journal.id).then(response => {
+      commit('remove', journal.id)
+    })
   },
 }

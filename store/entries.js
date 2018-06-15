@@ -28,7 +28,7 @@ export const actions = {
   async init({commit}, params){
     let journalId = Number(params.journal_id)
     commit('updateField', {path: 'journalId', value: journalId })
-    this.$axios.get(`/api/journals/${journalId}/entries`).then(response => {
+    await this.$axios.get(`/api/journals/${journalId}/entries`).then(response => {
       let entries = Object.assign({}, ...response.data.data.map(e => {return {[e.id]: e.attributes} }) )
       commit('updateField', {path: 'collection', value: entries })
     })

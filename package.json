@@ -1,7 +1,7 @@
 {
     "name": "overlord-shovel",
     "scripts": {
-        "dev": "nuxt"
+        "dev": "HOST=0.0.0.0 nuxt"
     },
     "dependencies": {
         "@nuxtjs/axios": "^5.3.1",

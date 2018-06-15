@@ -14,13 +14,13 @@
         button.btn.btn-light(@click="cancel") Cancel
     template(v-else)
       td.column
-        p {{ characters[entry.character_id].name }}
+        p {{ character.name }}
       td.column
         i {{ entry.reward }}
       td.column
         p {{ entry.experience }}
       td
-        template(v-if="currentUser.id == campaign.gm_id")
+        template(v-if="currentUser == campaign.gm_id")
           button.btn.btn-light(@click="setEditing(true)") Edit
           button.btn.btn-danger(@click="confirmDelete") Delete
 </template>
@@ -44,7 +44,8 @@
         campaigns: 'campaigns/collection',
         characters: 'characters/collection',
       }),
-      campaign(){ return this.campaigns[this.campaignId] }
+      campaign(){ return this.campaigns[this.campaignId] },
+      character(){ return this.characters[this.entry.character_id] || {} },
     },
     created(){
       if (this.entry.id == 0){this.setEditing(true)}

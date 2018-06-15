@@ -15,7 +15,7 @@ export const mutations = {
 }
 
 export const actions = {
-  async nuxtServerInit({dispatch}){
-    await dispatch('campaigns/init')
-  },
+  // async nuxtServerInit({dispatch}){
+  //   await dispatch('campaigns/init')
+  // },
 }

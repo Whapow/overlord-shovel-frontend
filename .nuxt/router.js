@@ -3,11 +3,11 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-const _c335b518 = () => import('../pages/login/index.vue' /* webpackChunkName: "pages/login/index" */).then(m => m.default || m)
-const _1e98655f = () => import('../pages/campaigns/_campaign_id/journals/index.vue' /* webpackChunkName: "pages/campaigns/_campaign_id/journals/index" */).then(m => m.default || m)
-const _745cde5c = () => import('../pages/campaigns/_campaign_id/journals/_journal_id/index.vue' /* webpackChunkName: "pages/campaigns/_campaign_id/journals/_journal_id/index" */).then(m => m.default || m)
-const _454e93b5 = () => import('../pages/campaigns/_campaign_id/shiny_pile/index.vue' /* webpackChunkName: "pages/campaigns/_campaign_id/shiny_pile/index" */).then(m => m.default || m)
-const _686976cc = () => import('../pages/index.vue' /* webpackChunkName: "pages/index" */).then(m => m.default || m)
+const _5e75dbe8 = () => import('../pages/login/index.vue' /* webpackChunkName: "pages/login/index" */).then(m => m.default || m)
+const _68697812 = () => import('../pages/campaigns/_campaign_id/journals/index.vue' /* webpackChunkName: "pages/campaigns/_campaign_id/journals/index" */).then(m => m.default || m)
+const _75734b6a = () => import('../pages/campaigns/_campaign_id/journals/_journal_id/index.vue' /* webpackChunkName: "pages/campaigns/_campaign_id/journals/_journal_id/index" */).then(m => m.default || m)
+const _71442c4d = () => import('../pages/campaigns/_campaign_id/shiny_pile/index.vue' /* webpackChunkName: "pages/campaigns/_campaign_id/shiny_pile/index" */).then(m => m.default || m)
+const _e542f99c = () => import('../pages/index.vue' /* webpackChunkName: "pages/index" */).then(m => m.default || m)
 
 
 
@@ -69,27 +69,27 @@ export function createRouter () {
     routes: [
 		{
 			path: "/login",
-			component: _c335b518,
+			component: _5e75dbe8,
 			name: "login"
 		},
 		{
 			path: "/campaigns/:campaign_id?/journals",
-			component: _1e98655f,
+			component: _68697812,
 			name: "campaigns-campaign_id-journals"
 		},
 		{
 			path: "/campaigns/:campaign_id?/journals/:journal_id",
-			component: _745cde5c,
+			component: _75734b6a,
 			name: "campaigns-campaign_id-journals-journal_id"
 		},
 		{
 			path: "/campaigns/:campaign_id?/shiny:pile?",
-			component: _454e93b5,
+			component: _71442c4d,
 			name: "campaigns-campaign_id-shinypile"
 		},
 		{
 			path: "/",
-			component: _686976cc,
+			component: _e542f99c,
 			name: "index"
 		}
     ],

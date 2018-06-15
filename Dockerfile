@@ -1,7 +1,7 @@
 FROM node:9
 
 ARG UID
-RUN adduser frontend --uid $UID --disabled-password --gecos ""
+RUN useradd -ms /bin/bash --uid $UID --non-unique frontend
 
 ENV APP /usr/src/app
 RUN mkdir $APP

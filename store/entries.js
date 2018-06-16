@@ -11,7 +11,7 @@ export const state = function(){
 
 export const getters = {
   getField,
-  collection: state => { return _.filter(state.collection, {'journal_id': state.journalId})}
+  collection: state => { return _.pickBy(state.collection, function(value){return value.journal_id == state.journalId})}
 }
 
 export const mutations = {

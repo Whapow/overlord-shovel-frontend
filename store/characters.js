@@ -9,7 +9,10 @@ export const state = function(){
 
 export const getters = {
   getField,
-  collection: state => {return state.collection}
+  collection: state => { 
+    if (state.campaignId){ return _.pickBy(state.collection, function(value){return value.campaign_id == state.campaignId}) } 
+    else { return state.collection }
+  }
 }
 
 export const mutations = {

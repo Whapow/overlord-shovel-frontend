@@ -29,15 +29,28 @@ export const actions = {
       commit('updateField', {path: 'collection', value: campaigns })
     })
   },
-  // new({commit, state}){
-  //   let campaign = {id: 0, name: null, gm_id: null}
-  //   commit('update', {campaign})
-  // },
-  // submit({commit, state}, {campaign}){
-  //   if (campaign.id == 0){campaign.id = Math.random()*100}
-  //   commit('update', {campaign})
-  // },
-  // delete({commit}, {campaign}) {
-  //   remove(campaign.id)
-  // },
+  new({commit, rootState}){
+    let campaign = {id: 0, name: null, gm_id: rootState.session.currentUser}
+    commit('update', {campaign})
+  },
+  submit({commit}, {campaign}){
+    let saveCampaign = (response)=>{
+      let campaign = response.data.data.attributes
+      commit('update', {campaign})
+    }
+    if (campaign.id == 0){
+      this.$axios.post('/campaigns', campaign).then(response => {
+        saveCampaign(response)
+      })
+    } else {
+      this.$axios.patch('/campaigns/' + campaign.id, campaign).then( response => {
+        saveCampaign(response)
+      })
+    }
+  },
+  delete({commit}, {campaign}) {
+    this.$axios.delete('/campaigns/' + campaign.id).then(response => {
+      commit('remove', campaign.id)
+    })
+  },
 }

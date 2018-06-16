@@ -8,19 +8,20 @@
           th GM
           th
       tbody
-        tr(v-for="campaign in campaigns", :key="campaign.id")
-          td {{ campaign.name }}
-          td {{ playerName(campaign.gm_id) }}
-          td
-            router-link.btn.btn-light(:to="`/campaigns/${campaign.id}/journals`") Journals
-            router-link.btn.btn-light(:to="`/campaigns/${campaign.id}/shiny_pile`") Shiny Pile
+        campaign-row(v-for="campaign in campaigns", :key="campaign.id", :campaign="campaign")
+        tr
+          td(colspan="4")
+            a(href="#", @click.prevent="newCampaign") Add New
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
+  import { mapGetters, mapActions } from 'vuex'
+
+  import campaignRow from '~/components/campaignRow'
 
   export default {
     layout: 'default',
+    components: {campaignRow},
     data(){
       return {
         campaignId: this.$route.params.campaign_id
@@ -35,6 +36,7 @@
       playerName(id){
         return this.users[id].name
       },
+      ...mapActions({newCampaign: 'campaigns/new'})
     }
   }
 </script>

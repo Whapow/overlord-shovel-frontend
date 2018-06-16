@@ -5,7 +5,7 @@
     },
     "scripts": {
         "dev": "HOST=0.0.0.0 nuxt",
-        "heroku-postbuild": "yarn build"
+        "heroku-postbuild": "npm run build"
     },
     "dependencies": {
         "@nuxtjs/axios": "^5.3.1",

@@ -11,11 +11,9 @@ export const state = function(){
 
 export const getters = {
   getField,
-  collection: state => { 
-    if (state.campaignId){ return _.pickBy(state.collection, function(value){return value.campaign_id == state.campaignId}) } 
-    else { return state.collection }
+  collection: state => { return state.collection },
+  byCampaign: state => { return _.groupBy(state.collection, 'campaign_id') }
   }
-}
 
 export const mutations = {
   updateField,

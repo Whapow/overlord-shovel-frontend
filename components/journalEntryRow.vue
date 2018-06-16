@@ -4,7 +4,7 @@
       td.column
         select(v-model.trim="formData.character_id")
           option(:value="null") Please Select
-          option(v-for="character in characters", :value="character.id") {{ character.name }}
+          option(v-for="character in characters[campaignId]", :value="character.id") {{ character.name }}
       td.column
         input(type='text', v-model.number="formData.reward")
       td.column
@@ -42,7 +42,7 @@
       ...mapGetters({
         currentUser: 'session/currentUser',
         campaigns: 'campaigns/collection',
-        characters: 'characters/collection',
+        characters: 'characters/byCampaign',
       }),
       campaign(){ return this.campaigns[this.campaignId] },
       character(){ return this.characters[this.entry.character_id] || {} },

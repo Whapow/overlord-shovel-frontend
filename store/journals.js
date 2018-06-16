@@ -47,7 +47,7 @@ export const actions = {
         saveJournal(response)
       })
     } else {
-      this.$axios.patch('/journals/' + journal.id).then( response => {
+      this.$axios.patch('/journals/' + journal.id, journal).then( response => {
         saveJournal(response)
       })
     }

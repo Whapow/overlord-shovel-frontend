@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import _ from 'lodash'
 import { getField, updateField } from 'vuex-map-fields'
 
 export const state = function(){

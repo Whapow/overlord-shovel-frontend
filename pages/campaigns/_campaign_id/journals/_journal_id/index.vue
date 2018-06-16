@@ -7,11 +7,12 @@
           th  Character
           th  Reward Value
           th  Experience
+          th
       tbody
         journal-entry-row(v-for="entry in entries", :key="entry.id", :entry="entry")
         tr
-          td
-            button.btn.btn-light(@click="newEntry") Add New
+          td(colspan="4")
+            button.btn.btn-light(@click="newEntry") Add New  
 </template>
 
 <script>

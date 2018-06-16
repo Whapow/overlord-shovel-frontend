@@ -5,18 +5,20 @@
       
       ul.navbar-nav
         li.nav-item.active
-          router-link.nav-link(to="/login") Sign in
+          router-link.nav-link(v-if="currentUser.id", :to="`/users/${currentUser.id}/characters`") My Characters
+          router-link.nav-link(v-else, to="/login") Sign in
     .container      
       nuxt
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   created(){
     this.loadCampaigns()
     this.loadUsers()
   },
+  computed: mapGetters({currentUser: 'session/currentUser'}),
   methods: mapActions({loadCampaigns: 'campaigns/init', loadUsers: 'users/init'})
 }
 </script>

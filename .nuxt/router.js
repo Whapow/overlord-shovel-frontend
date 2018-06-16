@@ -6,6 +6,7 @@ Vue.use(Router)
 const _5e75dbe8 = () => import('../pages/login/index.vue' /* webpackChunkName: "pages/login/index" */).then(m => m.default || m)
 const _c2ad1888 = () => import('../pages/users/new/index.vue' /* webpackChunkName: "pages/users/new/index" */).then(m => m.default || m)
 const _68697812 = () => import('../pages/campaigns/_campaign_id/journals/index.vue' /* webpackChunkName: "pages/campaigns/_campaign_id/journals/index" */).then(m => m.default || m)
+const _2462fde5 = () => import('../pages/users/_user_id/characters/index.vue' /* webpackChunkName: "pages/users/_user_id/characters/index" */).then(m => m.default || m)
 const _75734b6a = () => import('../pages/campaigns/_campaign_id/journals/_journal_id/index.vue' /* webpackChunkName: "pages/campaigns/_campaign_id/journals/_journal_id/index" */).then(m => m.default || m)
 const _71442c4d = () => import('../pages/campaigns/_campaign_id/shiny_pile/index.vue' /* webpackChunkName: "pages/campaigns/_campaign_id/shiny_pile/index" */).then(m => m.default || m)
 const _e542f99c = () => import('../pages/index.vue' /* webpackChunkName: "pages/index" */).then(m => m.default || m)
@@ -82,6 +83,11 @@ export function createRouter () {
 			path: "/campaigns/:campaign_id?/journals",
 			component: _68697812,
 			name: "campaigns-campaign_id-journals"
+		},
+		{
+			path: "/users/:user_id?/characters",
+			component: _2462fde5,
+			name: "users-user_id-characters"
 		},
 		{
 			path: "/campaigns/:campaign_id?/journals/:journal_id",

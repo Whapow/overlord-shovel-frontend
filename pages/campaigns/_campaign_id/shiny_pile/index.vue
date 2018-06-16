@@ -3,6 +3,7 @@
     .container
       .row
         .title
+          router-link.btn.btn-light(:to="`/`") Back to Campaigns
           h2 {{ campaign.name }}
           i Drag items to move them to a different inventory.
           p Total: {{ items | totalValue }}

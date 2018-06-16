@@ -50,7 +50,7 @@
     layout: 'default',
     created(){
       this.init(this.$route.params);
-      this.loadCharacters()
+      this.loadCharacters(this.$route.params)
     },
     components: { draggable, itemRow },
     computed: {

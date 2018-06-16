@@ -1,6 +1,7 @@
 <template lang="pug">
   .journal
     router-link.btn.btn-light(:to="`/campaigns/${campaignId}/journals`") Back to Journals
+    h3 {{ campaign.name }} - {{ journal.name }}
     table.table.table-hover
       thead
         tr
@@ -22,22 +23,26 @@
     components: { journalEntryRow },
     data(){
       return {
+        journalId: this.$route.params.journal_id,
         campaignId: this.$route.params.campaign_id
       }
     },
     computed: {
-      ...mapGetters({entries: 'entries/collection'})
+      ...mapGetters({entries: 'entries/collection', journals: 'journals/collection', campaigns: 'campaigns/collection'}),
+      journal(){ return this.journals[this.journalId] || {} },
+      campaign(){ return this.campaigns[this.campaignId] || {} }
     },
     created(){
       this.loadEntries(this.$route.params)
       this.loadCharacters(this.$route.params)
-
+      this.init(this.$route.params)
     },
     methods: {
       ...mapActions({
         loadEntries: 'entries/init', 
         loadCharacters: 'characters/init',
-        newEntry: 'entries/new',  
+        newEntry: 'entries/new',
+        init: 'journals/init'
       })
     }
   }

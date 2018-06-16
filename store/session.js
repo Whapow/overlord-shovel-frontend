@@ -1,9 +1,9 @@
-import Vue from 'vue'
 import { getField, updateField } from 'vuex-map-fields'
 
 export const state = function(){
   return ({
-    currentUser: 1,
+    currentUser: {},
+    errorMessage: null
   })
 }
 
@@ -21,6 +21,9 @@ export const actions = {
     await this.$axios.post('/login', {session: loginParams}).then(response => {
       let user = response.data.data.attributes
       commit('updateField', {path: 'currentUser', value: user})
+      this.$router.push('/')
+    }).catch(response => {
+      commit('updateField', {path: 'errorMessage', value: 'Could not login'})
     })
   },
 

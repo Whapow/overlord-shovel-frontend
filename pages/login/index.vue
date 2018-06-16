@@ -1,14 +1,15 @@
 <template lang='pug'>
   .login.container
     h3 Sign in
+    i.red {{ errorMessage }}
     .form-group
       label Username
-      input.form-control(type='text', v-model="user.name")
+      input.form-control(type='text', v-model="formData.display_name")
     .form-group
       .d-flex.justify-content-between
         label Password
         a.text-secondary(href="#") Forgot password?
-      input.form-control(type='password', v-model="passwordEntry")
+      input.form-control(type='password', v-model.password="formData.password", :disabled="true")
     .form-group.form-check
       input.form-check-input(type='checkbox', id="checkbox")
       label.form-check-label(for="checkbox") Remember Me
@@ -20,21 +21,25 @@
 </template>
 
 <script>
+  import { mapActions } from 'vuex'
+  import { createHelpers } from 'vuex-map-fields'
+  const { mapFields } = createHelpers({
+    getterType: 'session/getField'
+  }) 
   export default {
     data(){
       return {
-        loggedIn: false,
-        user: {},
-        passwordEntry: null,
+        formData: {},
       }
     },
+    computed: mapFields(['errorMessage']),
     methods: {
       submitLogin(){
-        if (this.user.name && this.passwordEntry) {
-          this.loggedIn = true
-          this.passwordEntry = null
+        if (this.formData.display_name) {
+          this.login(this.formData)
         }
       },
+      ...mapActions({login: 'session/login'})
     }
   }
 </script>
@@ -46,5 +51,9 @@
   
   a:hover {
     text-decoration: none;
+  }
+
+  i.red {
+    color: red
   }
 </style>

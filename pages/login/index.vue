@@ -17,7 +17,7 @@
       button.btn.btn-dark.btn-block(@click="submitLogin") Sign in
     .form-group
       p.small.text-center.text-secondary Don't have an account yet? 
-        a(href="#") Sign up
+        router-link(:to="`/users/new`") Sign up
 </template>
 
 <script>

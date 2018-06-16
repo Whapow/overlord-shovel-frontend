@@ -4,6 +4,7 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 const _5e75dbe8 = () => import('../pages/login/index.vue' /* webpackChunkName: "pages/login/index" */).then(m => m.default || m)
+const _c2ad1888 = () => import('../pages/users/new/index.vue' /* webpackChunkName: "pages/users/new/index" */).then(m => m.default || m)
 const _68697812 = () => import('../pages/campaigns/_campaign_id/journals/index.vue' /* webpackChunkName: "pages/campaigns/_campaign_id/journals/index" */).then(m => m.default || m)
 const _75734b6a = () => import('../pages/campaigns/_campaign_id/journals/_journal_id/index.vue' /* webpackChunkName: "pages/campaigns/_campaign_id/journals/_journal_id/index" */).then(m => m.default || m)
 const _71442c4d = () => import('../pages/campaigns/_campaign_id/shiny_pile/index.vue' /* webpackChunkName: "pages/campaigns/_campaign_id/shiny_pile/index" */).then(m => m.default || m)
@@ -71,6 +72,11 @@ export function createRouter () {
 			path: "/login",
 			component: _5e75dbe8,
 			name: "login"
+		},
+		{
+			path: "/users/new",
+			component: _c2ad1888,
+			name: "users-new"
 		},
 		{
 			path: "/campaigns/:campaign_id?/journals",

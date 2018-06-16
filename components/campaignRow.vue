@@ -10,7 +10,7 @@
         button.btn.btn-light(@click="cancel") Cancel
     template(v-else)
       td {{ campaign.name }}
-      td {{ playerName(campaign.gm_id) }} + {{campaign.gm_id}}
+      td {{ playerName(campaign.gm_id) }}
       td
         router-link.btn.btn-light(:to="`/campaigns/${campaign.id}/journals`") Journals
         router-link.btn.btn-light(:to="`/campaigns/${campaign.id}/shiny_pile`") Shiny Pile
@@ -35,9 +35,8 @@
     computed: {
       ...mapGetters({
         currentUser: 'session/currentUser',
-        // users: 'users/collection',
+        users: 'users/collection',
       }),
-      users(){return {1:{name: 'Joshua'}, 2:{name: "Jessica"}, 3:{name: "Evan"}, 4:{name: "Weston"} }},
     },
     created(){
       if (this.campaign.id == 0){this.setEditing(true)}
@@ -49,7 +48,7 @@
         else { this.formData = null }
       },
       playerName(id){
-        return this.users[id].name
+        return ({...this.users[id]}).name
       },
       ...mapMutations({
         updateCampaign: 'campaigns/update',

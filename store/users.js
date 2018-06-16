@@ -8,6 +8,7 @@ export const state = function(){
 
 export const getters = {
   getField,
+  collection: state => {return state.collection}
 }
 
 export const mutations = {

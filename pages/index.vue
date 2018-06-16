@@ -9,7 +9,7 @@
           th
       tbody
         campaign-row(v-for="campaign in campaigns", :key="campaign.id", :campaign="campaign")
-        tr
+        tr(v-if="currentUser.id")
           td(colspan="4")
             a(href="#", @click.prevent="newCampaign") Add New
 </template>
@@ -22,22 +22,8 @@
   export default {
     layout: 'default',
     components: {campaignRow},
-    data(){
-      return {
-        campaignId: this.$route.params.campaign_id
-      }
-    },
-    computed: {
-      ...mapGetters({campaigns: 'campaigns/collection'}),
-      users(){return {1:{name: 'Joshua'}, 2:{name: "Jessica"}, 3:{name: "Evan"}, 4:{name: "Weston"} }},
-      campaign(){ return this.campaigns[this.campaignId] }
-    },
-    methods: {
-      playerName(id){
-        return this.users[id].name
-      },
-      ...mapActions({newCampaign: 'campaigns/new'})
-    }
+    computed: mapGetters({campaigns: 'campaigns/collection', currentUser: 'session/currentUser'}),
+    methods: mapActions({newCampaign: 'campaigns/new'})
   }
 </script>
 

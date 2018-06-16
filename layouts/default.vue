@@ -14,8 +14,9 @@
 import { mapActions } from 'vuex'
 export default {
   created(){
-    this.init()
+    this.loadCampaigns()
+    this.loadUsers()
   },
-  methods: mapActions({init: 'campaigns/init'})
+  methods: mapActions({loadCampaigns: 'campaigns/init', loadUsers: 'users/init'})
 }
 </script>

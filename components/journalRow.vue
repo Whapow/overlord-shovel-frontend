@@ -54,11 +54,10 @@
       }),
       save(){
         if (this.formData.name){
+          this.submitJournal({journal: this.formData})
           if(this.journal.id == 0) {
-            this.submitJournal({journal: this.formData})
             this.removeJournal(0)
           } else {
-            this.updateJournal({journal: this.formData})
             this.setEditing(false)
           }
         }

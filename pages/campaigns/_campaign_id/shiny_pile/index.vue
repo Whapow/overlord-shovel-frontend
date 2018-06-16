@@ -57,7 +57,7 @@
       ...mapGetters({items: 'items/collection', campaigns: 'campaigns/collection', characters: 'characters/collection'}),
       ...mapFields(['campaignId', 'collection']),
       itemList(){ return _.groupBy(this.items, 'character_id') },
-      campaign(){ return this.campaigns[this.campaignId] }
+      campaign(){ return this.campaigns[this.campaignId] || {} }
     },
     filters: {
       totalValue(collection){ 

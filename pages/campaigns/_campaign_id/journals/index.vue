@@ -37,7 +37,7 @@
     },
     computed:{
       ...mapGetters({journals: 'journals/collection', campaigns: 'campaigns/collection'}),
-      campaign(){ return this.campaigns[this.campaignId] }
+      campaign(){ return this.campaigns[this.campaignId] || {} }
     },
     created(){
       this.init(this.$route.params);

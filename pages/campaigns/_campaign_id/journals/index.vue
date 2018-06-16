@@ -5,11 +5,11 @@
     table.table.table-hover
       thead
         tr
-          th Journal Name
+          th(colspan="2") Journal Name
       tbody
         journal-row(v-for="journal in journals", :key="journal.id", :journal="journal")
-        tr
-          td
+        tr(v-if="campaign.gm_id && currentUser.id == campaign.gm_id")
+          td(colspan="2")
             a(href="#", @click.prevent="newJournal") Add New
 </template>
 
@@ -36,7 +36,7 @@
       })
     },
     computed:{
-      ...mapGetters({journals: 'journals/collection', campaigns: 'campaigns/collection'}),
+      ...mapGetters({journals: 'journals/collection', campaigns: 'campaigns/collection', currentUser: 'session/currentUser'}),
       campaign(){ return this.campaigns[this.campaignId] || {} }
     },
     created(){

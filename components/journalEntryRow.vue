@@ -20,7 +20,7 @@
       td.column
         p {{ entry.experience }}
       td
-        template(v-if="currentUser == campaign.gm_id")
+        template(v-if="currentUser.id == campaign.gm_id")
           button.btn.btn-light(@click="setEditing(true)") Edit
           button.btn.btn-danger(@click="confirmDelete") Delete
 </template>

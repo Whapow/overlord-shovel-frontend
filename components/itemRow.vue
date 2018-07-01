@@ -18,9 +18,8 @@
       td.column
         p {{ item.value }}
       td
-        template(v-if="currentUser.id == campaign.gm_id")
-          button.btn.btn-light(@click="setEditing(true)") Edit
-          button.btn.btn-danger(@click="confirmDelete") Delete
+        button.btn.btn-light(@click="setEditing(true)") Edit
+        button.btn.btn-danger(v-if="currentUser.id == campaign.gm_id", @click="confirmDelete") Delete
 </template>
 
 <script>

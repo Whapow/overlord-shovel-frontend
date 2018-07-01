@@ -59,7 +59,7 @@
         deleteItem: 'items/delete'
       }),
       save(){
-        if (this.formData.name && this.formData.description && this.formData.value >= 0 ){
+        if (this.formData.name && this.formData.value >= 0 ){
           if(this.item.id == 0) {
             this.submitItem({item: this.formData})
             this.removeItem(0)

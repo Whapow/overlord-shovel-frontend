@@ -2,11 +2,11 @@
   tr.item
     template(v-if="editing")
       td.column
-        input(type='text', v-model.trim="formData.name")
+        input(type='text', v-model.trim="formData.name", @keyup.enter="save")
       td.column
         input(type='text', v-model.trim="formData.description")
       td.column
-        input(type='text', v-model.number="formData.value")
+        input(type='text', v-model.number="formData.value", @keyup.enter="save")
       td
         button.btn.btn-primary(@click="save") Save
         button.btn.btn-light(@click="cancel") Cancel

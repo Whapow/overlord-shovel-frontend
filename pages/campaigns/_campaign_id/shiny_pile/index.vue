@@ -53,6 +53,7 @@
       this.init(this.$route.params);
       this.loadCharacters(this.$route.params)
       this.loadInventories(this.$route.params)
+      this.loadItemSlots(this.$route.params)
     },
     components: { draggable, itemRow },
     computed: {
@@ -61,6 +62,7 @@
         campaigns: 'campaigns/collection', 
         characters: 'characters/collection', 
         inventories: 'inventories/collection',
+        itemSlots: 'itemSlots/collection',
       }),
       ...mapFields(['campaignId', 'collection']),
       itemList(){ return _.groupBy(this.items, 'character_id') },
@@ -88,7 +90,8 @@
         addItem:'items/new',
         submitItem: 'items/submit',
         loadCharacters: 'characters/init',
-        loadInventories: 'inventories/init'
+        loadInventories: 'inventories/init',
+        loadItemSlots: 'itemSlots/init'
       }),
       moveItem(event){
         let {...item} = this.collection[event.item.id]

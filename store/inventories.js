@@ -30,7 +30,11 @@ export const actions = {
     let campaignId = Number(params.campaign_id)
     commit('updateField', {path: 'campaignId', value: campaignId })    
     await this.$axios.get(`/campaigns/${campaignId}/inventories`).then(response => {
-      let inventories = Object.assign({}, ...response.data.data.map(i => {return {[i.id]: i.attributes} }) )
+      let inventories = Object.assign({},
+        ...response.data.data.map(i => {
+          return { [i.id]: {...i.attributes, ..._.mapValues(i.relationships, r => { return r.data }) } } 
+        }) 
+      )
       commit('updateField', {path: 'collection', value: inventories })
     })
   },

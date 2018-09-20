@@ -8,6 +8,31 @@
           i Drag items to move them to a different inventory.
           p Total: {{ items | totalValue }}
       .row
+        .col-8.shiny-pile.panel
+          div(v-for="inventory in campaign.inventories", v-if="inventories[inventory.id]")
+            .header.row
+              .col-4
+                h4 {{ inventories[inventory.id].name }}
+              .col-2
+                // p {{ inventory | totalValue2 }}g
+            .body
+              table.table.table-hover
+                tbody
+                  tr(v-for="itemSlot in inventories[inventory.id].item_slots", v-if="itemSlots[itemSlot.id]")
+                    td {{ itemSlots[itemSlot.id].quantity }}
+        .col-4
+          .character-inventory-panel(v-for="character in characters", v-if="character.campaign_id == campaignId && inventories[character.inventory.id]")
+            .header
+              .row
+                .col-6
+                  h4 {{ inventories[character.inventory.id].name }}
+                .col-3
+                  p {{ itemList[character.id] | totalValue }}g
+            .body
+                table.table.table-hover
+                  tbody
+                    draggable.draggable(v-model="itemList[character.id]", :options="{group: 'items'}", :id="character.id", @end="moveItem")
+                      item-row.item(v-for="item in itemList[character.id]", :key="item.id", :id="item.id", :item="item")            
         .col-8.shiny-pile-panel
           .header.row
             .col-4
@@ -75,6 +100,18 @@
           let array = Object.values(collection)
           array.forEach(function(obj){
             total += Number(obj.value)
+          })
+        }
+        return total
+      },
+      totalValue2(inv){ 
+        let inventory = this.inventories[inv.id]
+        if (inventory){
+          let total = 0
+          let item_slots = inventory.relationships.item_slots.data
+          item_slots.forEach(function(itemSlot){
+            let item = this.items[itemSlot.relationships.item.data.id]
+            total += Number(itemSlot.quantity * item.value)
           })
         }
         return total

@@ -17,8 +17,8 @@ export const getters = {
 
 export const mutations = {
   updateField,
-  update(state, {item_slot}){
-    Vue.set(state.collection, item_slot.id, item_slot)
+  update(state, {itemSlot}){
+    Vue.set(state.collection, itemSlot.id, itemSlot)
   },
   remove(state, id){
     Vue.delete(state.collection, id)
@@ -28,32 +28,33 @@ export const mutations = {
 export const actions = {
   async init({commit}, params){   
     await this.$axios.get(`/item_slots`).then(response => {
-      let item_slots = unpackResponse(response.data)
-      commit('updateField', {path: 'collection', value: item_slots })
+      let itemSlots = unpackResponse(response.data)
+      commit('updateField', {path: 'collection', value: itemSlots })
     })
   },
   new({commit}){
-    let item_slot = {id: 0, inventory_id: null, item_id: null}
-    commit('update', {item_slot})
+    let itemSlot = {id: 0, inventory_id: null, item_id: null}
+    commit('update', {itemSlot})
   },
-  submit({commit}, {item_slot}){
-    let saveItem = (response)=>{
-      let item_slot = response.data.data.attributes
-      commit('update', {item_slot})
+  submit({commit}, {itemSlot}){
+    let saveItemSlot = (response)=>{
+      let itemSlot = response.data.data.attributes
+      commit('update', {itemSlot})
     }
-    if (item_slot.id == 0){
-      this.$axios.post('/item_slots', item_slot).then(response => {
-        saveItem(response)
+    console.log(itemSlot)
+    if (itemSlot.id == 0){
+      this.$axios.post('/item_slots', itemSlot).then(response => {
+        saveItemSlot(response)
       })
     } else { 
-      this.$axios.patch('/item_slots/' + item_slot.id, item_slot).then(response => {
-        saveItem(response)
+      this.$axios.patch('/item_slots/' + itemSlot.id, itemSlot).then(response => {
+        saveItemSlot(response)
       })
     }
   },
-  delete({commit}, {item_slot}) {
-    this.$axios.delete('/item_slots/' + item_slot.id).then(response => {
-      commit('remove', item_slot.id)
+  delete({commit}, {itemSlot}) {
+    this.$axios.delete('/item_slots/' + itemSlot.id).then(response => {
+      commit('remove', itemSlot.id)
     })
   },
 }

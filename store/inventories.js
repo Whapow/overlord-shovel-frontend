@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import _ from 'lodash'
 import { getField, updateField } from 'vuex-map-fields'
+import toHash from '../helpers/shovel.js'
 
 export const state = function(){
   return ({
@@ -30,11 +31,12 @@ export const actions = {
     let campaignId = Number(params.campaign_id)
     commit('updateField', {path: 'campaignId', value: campaignId })    
     await this.$axios.get(`/campaigns/${campaignId}/inventories`).then(response => {
-      let inventories = Object.assign({},
-        ...response.data.data.map(i => {
-          return { [i.id]: {...i.attributes, ..._.mapValues(i.relationships, r => { return r.data }) } } 
-        }) 
-      )
+      let inventories = toHash(response.data)
+      // let inventories = Object.assign({},
+      //   ...response.data.data.map(i => {
+      //     return { [i.id]: {...i.attributes, ..._.mapValues(i.relationships, r => { return r.data }) } } 
+      //   }) 
+      // )
       commit('updateField', {path: 'collection', value: inventories })
     })
   },

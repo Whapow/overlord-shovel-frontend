@@ -9,31 +9,40 @@
           p Total: {{ items | totalValue }}
       .row
         .col-8.shiny-pile.panel
-          div(v-for="inventory in campaign.inventories", v-if="inventories[inventory.id]")
-            .header.row
-              .col-4
-                h4 {{ inventories[inventory.id].name }}
-              .col-2
-                // p {{ inventory | totalValue2 }}g
-            .body
-              table.table.table-hover
-                tbody
-                  tr(v-for="itemSlot in inventories[inventory.id].item_slots", v-if="itemSlots[itemSlot.id]")
-                    td {{ itemSlots[itemSlot.id].quantity }}
+          inventory(v-for="inventory in campaign.inventories", v-if="inventories[inventory.id]"
+            :inventory="inventories[inventory.id]", :owner="campaign")
+            //- .header.row
+            //-   .col-4
+            //-     h4 {{ inventories[inventory.id].name }}
+            //-   .col-2
+            //-     // p {{ inventory | totalValue2 }}g
+            //- .body
+            //-   table.table.table-hover
+            //-     tbody
+            //-       //- draggable.draggable(v-model="itemList[campaign.id]", :options="{group: 'items'}", :id="campaign.id", @end="moveItem")
+            //-       //-   item-row.item(v-for="item in itemList[campaign.id]", :key="item.id", :id="item.id", :item="item")
+            //-       tr(v-for="itemSlot in inventories[inventory.id].item_slots", v-if="itemSlots[itemSlot.id]")
+            //-         td {{ items[itemSlots[itemSlot.id].item_id].name }}
+            //-         td {{ itemSlots[itemSlot.id].quantity }}
         .col-4
-          .character-inventory-panel(v-for="character in characters", v-if="character.campaign_id == campaignId && inventories[character.inventory.id]")
-            .header
-              .row
-                .col-6
-                  h4 {{ inventories[character.inventory.id].name }}
-                .col-3
-                  p {{ itemList[character.id] | totalValue }}g
-            .body
-                table.table.table-hover
-                  tbody
-                    draggable.draggable(v-model="itemList[character.id]", :options="{group: 'items'}", :id="character.id", @end="moveItem")
-                      item-row.item(v-for="item in itemList[character.id]", :key="item.id", :id="item.id", :item="item")            
-        .col-8.shiny-pile-panel
+          inventory(v-for="character in characters", v-if="character.campaign_id == campaignId && inventories[character.inventory.id]", 
+            :inventory="inventories[character.inventory.id]", :owner="character")
+          //- .character-inventory-panel(v-for="character in characters", v-if="character.campaign_id == campaignId && inventories[character.inventory.id]")
+          //-   .header
+          //-     .row
+          //-       .col-6
+          //-         h4 {{ inventories[character.inventory.id].name }}
+          //-       .col-3
+          //-         p {{ itemList[character.id] | totalValue }}g
+          //-   .body
+          //-       table.table.table-hover
+          //-         tbody
+          //-           tr(v-for="itemSlot in inventories[character.inventory.id].item_slots", v-if="itemSlots[itemSlot.id]")
+          //-             td {{ items[itemSlots[itemSlot.id].item_id].name }}
+          //-             td {{ itemSlots[itemSlot.id].quantity }}
+          //-           //- draggable.draggable(v-model="itemList[null]", :options="{group: 'items'}", :id="null", @end="moveItem")
+          //-           //-   item-row.item(v-for="item in itemList[null]", :key="item.id", :id="item.id", :item="item")            
+        //- .col-8.shiny-pile-panel
           .header.row
             .col-4
               h4 Unclaimed
@@ -46,7 +55,7 @@
               tbody
                 draggable.draggable(v-model="itemList[null]", :options="{group: 'items'}", :id="null", @end="moveItem")
                   item-row.item(v-for="item in itemList[null]", :id="item.id", :key="item.id", :item="item")        
-        .col-4         
+        //- .col-4         
           .character-inventory-panel(v-for="character in characters", v-if="character.campaign_id == campaignId")
             .header
               .row
@@ -71,6 +80,7 @@
   import draggable from 'vuedraggable'
   import _ from 'lodash'
   import itemRow from '~/components/itemRow'
+  import inventory from '~/components/inventory'
 
   export default {
     layout: 'default',
@@ -80,7 +90,7 @@
       this.loadInventories(this.$route.params)
       this.loadItemSlots(this.$route.params)
     },
-    components: { draggable, itemRow },
+    components: { draggable, itemRow, inventory },
     computed: {
       ...mapGetters({
         items: 'items/collection', 

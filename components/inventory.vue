@@ -5,28 +5,58 @@
         .col-6
           h4 {{ inventory.name }}
         .col-3
-          //- p {{ itemList[character.id] | totalValue }}g
+          //- p() {{ inventory | totalValue }}g
     .body
         table.table.table-hover
           tbody
-            tr(v-for="itemSlot in inventory.item_slots", v-if="itemSlots[itemSlot.id]")
-              td {{ items[itemSlots[itemSlot.id].item_id].name }}
-              td {{ itemSlots[itemSlot.id].quantity }}
-            //- draggable.draggable(v-model="itemList[null]", :options="{group: 'items'}", :id="null", @end="moveItem")
-            //-   item-row.item(v-for="item in itemList[null]", :key="item.id", :id="item.id", :item="item") 
+            draggable.draggable(:value="inventory.item_slots", :options="{group: 'itemSlots'}", :id="inventory.id", @end="moveItem")
+              item-row.item(v-for="itemSlot in inventory.item_slots", v-if="itemSlots[itemSlot.id]", 
+                :key="itemSlot.id", :id="itemSlot.id", :item="items[itemSlots[itemSlot.id].item_id]")
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
+  import { mapGetters, mapActions } from 'vuex'
+  import draggable from 'vuedraggable'
+  import itemRow from '~/components/itemRow'
 
   export default {
     props: ['inventory', 'owner'],
+    components: {draggable, itemRow},
     computed: {
       ...mapGetters({
         currentUser: 'session/currentUser',
         items: 'items/collection', 
         itemSlots: 'itemSlots/collection',
-      }),
+      })
     },
+    methods:{
+      ...mapActions({
+        submitItemSlot: 'itemSlots/submit'
+      }),
+      moveItem(event){
+        let {...itemSlot} = this.itemSlots[event.item.id]
+        itemSlot.inventory_id = Number(event.to.id)
+        this.submitItemSlot({itemSlot})
+      }
+    },
+    filters: {
+      totalValue(inventory){     
+        let total = 0
+        inventory.item_slots.forEach(function(slot){
+          let itemSlot = this.itemSlots[slot.id]
+          let item = this.items[itemSlot.item_id]
+          total += Number(itemSlot.quantity) * Number(item.value)
+        })
+        return total
+      }
+    }
   }
 </script>
+
+<style lang="scss" scoped>
+  .draggable {
+    min-height: 5rem;
+    min-width: 10rem;
+  }
+</style>
+

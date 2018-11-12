@@ -23,7 +23,13 @@ export const mutations = {
   },
   remove(state, id){
     Vue.delete(state.collection, id)
-  }
+  },
+  moveSlot(state, {itemSlot, from, to}){
+    let source = state.collection[from]
+    let slot = source.item_slots.find((slot)=> { return slot.id == itemSlot.id })
+    source.item_slots.splice(source.item_slots.indexOf(slot),1)
+    state.collection[to].item_slots.splice(0,0,slot)
+  },
 }
 
 export const actions = {
@@ -59,4 +65,9 @@ export const actions = {
       commit('remove', inventory.id)
     })
   },
+  transferItem({state, commit, dispatch}, {itemSlot, from, to}){
+    dispatch('itemSlots/submit', {itemSlot}, {root:true}).then(()=> {
+      commit('moveSlot', {itemSlot, from, to})
+    })
+  }
 }

@@ -41,7 +41,6 @@ export const actions = {
       let itemSlot = response.data.data.attributes
       commit('update', {itemSlot})
     }
-    console.log(itemSlot)
     if (itemSlot.id == 0){
       this.$axios.post('/item_slots', itemSlot).then(response => {
         saveItemSlot(response)

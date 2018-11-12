@@ -31,12 +31,14 @@
     },
     methods:{
       ...mapActions({
-        submitItemSlot: 'itemSlots/submit'
+        transferItem: 'inventories/transferItem',
       }),
       moveItem(event){
-        let {...itemSlot} = this.itemSlots[event.item.id]
-        itemSlot.inventory_id = Number(event.to.id)
-        this.submitItemSlot({itemSlot})
+        if (event.from != event.to){
+          let {...itemSlot} = this.itemSlots[event.item.id]
+          itemSlot.inventory_id = event.to.id
+          this.transferItem({itemSlot, from: event.from.id, to: event.to.id})
+        }
       }
     },
     filters: {

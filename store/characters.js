@@ -13,6 +13,9 @@ export const state = function(){
 export const getters = {
   getField,
   collection: state => { return state.collection },
+  forCampaign: state => { return id => { 
+    return _.filter(state.collection, (char)=>{ return char.campaign_id == id})} 
+  },
   byCampaign: state => { return _.groupBy(state.collection, 'campaign_id') },
   byPlayer: state => { return _.groupBy(state.collection, 'player_id') },
 }

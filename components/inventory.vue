@@ -1,33 +1,39 @@
 <template lang="pug">
   .inventory-panel
-    .header
-      .row
-        .col-6
-          h4 {{ inventory.name }}
-        .col-3
-          //- p() {{ inventory | totalValue }}g
-    .body
-        table.table.table-hover
-          tbody
-            draggable.draggable(:value="inventory.item_slots", :options="{group: 'itemSlots'}", :id="inventory.id", @end="moveItem")
-              item-row.item(v-for="itemSlot in inventory.item_slots", v-if="itemSlots[itemSlot.id]", 
-                :key="itemSlot.id", :id="itemSlot.id", :item="items[itemSlots[itemSlot.id].item_id]")
+    .container(v-if="inventory")
+      .header
+        .row
+          .col-6
+            h4 {{ inventory.name }}
+          .col-3
+            //- p() {{ inventory | totalValue }}g
+      .body
+          table.table.table-hover
+            tbody
+              draggable.draggable(:value="inventory.item_slots", :options="{group: 'itemSlots'}", :id="inventory.id", @end="moveItem")
+                item-slot-row.item(v-for="itemSlot in inventory.item_slots", v-if="itemSlots[itemSlot.id]", 
+                  :key="itemSlot.id", :id="itemSlot.id", :itemSlot="itemSlots[itemSlot.id]")
 </template>
 
 <script>
   import { mapGetters, mapActions } from 'vuex'
   import draggable from 'vuedraggable'
   import itemRow from '~/components/itemRow'
+  import itemSlotRow from '~/components/itemSlotRow'
 
   export default {
-    props: ['inventory', 'owner'],
-    components: {draggable, itemRow},
+    props: ['inventoryReference', 'owner'],
+    components: {draggable, itemRow, itemSlotRow},
     computed: {
       ...mapGetters({
         currentUser: 'session/currentUser',
         items: 'items/collection', 
         itemSlots: 'itemSlots/collection',
-      })
+        inventories: 'inventories/collection',
+      }),
+      inventory(){
+        return this.inventories[this.inventoryReference.id]
+      }
     },
     methods:{
       ...mapActions({
@@ -60,5 +66,6 @@
     min-height: 5rem;
     min-width: 10rem;
   }
+
 </style>
 

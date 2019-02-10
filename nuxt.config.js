@@ -33,5 +33,8 @@ module.exports = {
   },
   router: {
     middleware: ['auth']
-  }
+  },
+  css: [
+    '~/css/main.css'
+  ]
 }

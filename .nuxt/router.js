@@ -5,10 +5,13 @@ Vue.use(Router)
 
 const _4ad4109d = () => import('../pages/login/index.vue' /* webpackChunkName: "pages/login/index" */).then(m => m.default || m)
 const _6504c1cd = () => import('../pages/users/new/index.vue' /* webpackChunkName: "pages/users/new/index" */).then(m => m.default || m)
+const _01e2ca33 = () => import('../pages/users/_user_id/profile/index.vue' /* webpackChunkName: "pages/users/_user_id/profile/index" */).then(m => m.default || m)
 const _d4398170 = () => import('../pages/campaigns/_campaign_id/journals/index.vue' /* webpackChunkName: "pages/campaigns/_campaign_id/journals/index" */).then(m => m.default || m)
 const _1cabec14 = () => import('../pages/users/_user_id/characters/index.vue' /* webpackChunkName: "pages/users/_user_id/characters/index" */).then(m => m.default || m)
 const _7840558a = () => import('../pages/campaigns/_campaign_id/journals/_journal_id/index.vue' /* webpackChunkName: "pages/campaigns/_campaign_id/journals/_journal_id/index" */).then(m => m.default || m)
 const _154a975e = () => import('../pages/campaigns/_campaign_id/shiny_pile/index.vue' /* webpackChunkName: "pages/campaigns/_campaign_id/shiny_pile/index" */).then(m => m.default || m)
+const _01d2a157 = () => import('../pages/users/_user_id/reset_password/index.vue' /* webpackChunkName: "pages/users/_user_id/reset_password/index" */).then(m => m.default || m)
+const _14d486aa = () => import('../pages/forgot_password/index.vue' /* webpackChunkName: "pages/forgot_password/index" */).then(m => m.default || m)
 const _03f00283 = () => import('../pages/index.vue' /* webpackChunkName: "pages/index" */).then(m => m.default || m)
 
 
@@ -80,6 +83,11 @@ export function createRouter () {
 			name: "users-new"
 		},
 		{
+			path: "/users/:user_id?/profile",
+			component: _01e2ca33,
+			name: "users-user_id-profile"
+		},
+		{
 			path: "/campaigns/:campaign_id?/journals",
 			component: _d4398170,
 			name: "campaigns-campaign_id-journals"
@@ -98,6 +106,16 @@ export function createRouter () {
 			path: "/campaigns/:campaign_id?/shiny:pile?",
 			component: _154a975e,
 			name: "campaigns-campaign_id-shinypile"
+		},
+		{
+			path: "/users/:user_id?/reset:password?",
+			component: _01d2a157,
+			name: "users-user_id-resetpassword"
+		},
+		{
+			path: "/forgot:password",
+			component: _14d486aa,
+			name: "forgotpassword"
 		},
 		{
 			path: "/",

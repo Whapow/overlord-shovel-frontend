@@ -1,26 +1,6 @@
 <template lang='pug'>
-  tr.itemSlot(v-if="campaign")
-    template(v-if="editing")
-      td.column
-        input(type='text', v-model.trim="formData.name")
-      td.column
-        input(type='text', v-model.trim="formData.description")
-      td.column
-        input(type='text', v-model.number="formData.value")
-      td
-        button.btn.btn-primary(@click="save") Save
-        button.btn.btn-light(@click="cancel") Cancel
-    template(v-else)
-      td.column
-        p {{ itemSlot.item.name }}
-      td.column
-        i {{ itemSlot.item.description }}
-      td.column
-        p {{ itemSlot.item.value }}
-      td
-        button.btn.btn-light(@click="setEditing(true)") Edit
-        template(v-if="currentUser.id == campaign.gm_id")
-          button.btn.btn-danger(@click="confirmDelete") Delete
+  .item-slot(v-if="itemSlot")
+    p(v-if="item") {{ item.name }} x {{ itemSlot.quantity}}
 </template>
 
 <script>
@@ -32,7 +12,7 @@
   }) 
 
   export default {
-    props: ['itemSlot'],
+    props: ['itemSlotReference'],
     data(){
       return {
         editing: false
@@ -43,8 +23,13 @@
     },
     computed: {
       ...mapFields(['campaignId']),
-      ...mapGetters({campaigns: 'campaigns/collection', currentUser: 'session/currentUser'}),
-      campaign(){ return this.campaigns[this.campaignId] }
+      ...mapGetters({ 
+        currentUser: 'session/currentUser',
+        itemSlots: 'itemSlots/collection',
+        items: 'items/collection'
+      }),
+      itemSlot(){ return this.itemSlots[this.itemSlotReference.id] },
+      item(){ return this.items[this.itemSlot.item.id] }
     },
     methods: {
       setEditing(value){
@@ -87,7 +72,7 @@
 </script>
 
 <style lang="scss" scoped>
-.column {
-  padding-left: 1rem
+.item-slot {
+  border-style: solid
 }
 </style>

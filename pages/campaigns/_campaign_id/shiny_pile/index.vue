@@ -1,20 +1,14 @@
 <template lang='pug'>
-  #shiny-pile
-    .container
-      .row
-        .title
-          router-link.btn.btn-light(:to="`/`") Back to Campaigns
-          h2 {{ campaign.name }}
-          i Drag items to move them to a different inventory.
-          p Total: {{ items | totalValue }}
-      .row
-        .col-8.shiny-pile
-          inventory(v-for="inventory in campaign.inventories", 
-            :key="inventory.id", :inventoryReference="inventory", :owner="campaign")
-        .col-4
-          inventory-deck(:characterCollection="characters(campaign.id)" )
-          //- inventory(v-for="character in characters", v-if="character.campaign_id == campaignId && inventories[character.inventory.id]", 
-            :key="character.inventory.id", :inventory="inventories[character.inventory.id]", :owner="character")
+  #shiny-pile.container.shiny-pile
+    .container.info-header
+      router-link.btn.btn-light(:to="`/`") Back to Campaigns
+      h2.campaign-title {{ campaign.name }}
+      i Drag items to move them to a different inventory.
+      //- p Total: {{ items | totalValue }}
+    .container.body
+      inventory(v-for="inventory in campaign.inventories", 
+        :key="inventory.id", :inventoryReference="inventory", :owner="campaign")
+      inventory-deck(:characterCollection="characters(campaign.id)" )
 </template>
 
 <script>
@@ -80,11 +74,12 @@
 </script>
 
 <style scoped>
-.shiny-pile-panel {
+.shiny-pile {
   width: 100%;
+  flex-direction: column;
 }
-.character-inventory-panel {
-  width: 100%
+.campaign-title {
+  min-width: 10rem
 }
 .title {
   padding-bottom: 2rem

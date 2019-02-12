@@ -1,29 +1,23 @@
 <template lang="pug">
   .inventory-panel
-    .container(v-if="inventory")
-      .header
-        .row
-          .col-6
-            h4 {{ inventory.name }}
-          .col-3
-            //- p() {{ inventory | totalValue }}g
-      .body
-          table.table.table-hover
-            tbody
-              draggable.draggable(:value="inventory.item_slots", :options="{group: 'itemSlots'}", :id="inventory.id", @end="moveItem")
-                item-slot-row.item(v-for="itemSlot in inventory.item_slots", v-if="itemSlots[itemSlot.id]", 
-                  :key="itemSlot.id", :id="itemSlot.id", :itemSlot="itemSlots[itemSlot.id]")
+    .container.inventory(v-if="inventory")
+      h4 {{ inventory.name }}
+      //- p {{ inventory | totalValue }}g
+      draggable.draggable(@end="moveItem",
+        :value="inventory.item_slots", :options="{group: 'itemSlots'}", :id="inventory.id" )
+        item-slot.item(v-for="itemSlot in inventory.item_slots", v-if="itemSlots[itemSlot.id]", 
+          :key="itemSlot.id", :id="itemSlot.id", :itemSlotReference="itemSlot")
 </template>
 
 <script>
   import { mapGetters, mapActions } from 'vuex'
   import draggable from 'vuedraggable'
   import itemRow from '~/components/itemRow'
-  import itemSlotRow from '~/components/itemSlotRow'
+  import itemSlot from '~/components/itemSlot'
 
   export default {
     props: ['inventoryReference', 'owner'],
-    components: {draggable, itemRow, itemSlotRow},
+    components: {draggable, itemRow, itemSlot},
     computed: {
       ...mapGetters({
         currentUser: 'session/currentUser',
@@ -41,6 +35,7 @@
       }),
       moveItem(event){
         if (event.from != event.to){
+          console.log(this.itemSlots[event.item.id])
           let {...itemSlot} = this.itemSlots[event.item.id]
           itemSlot.inventory_id = event.to.id
           this.transferItem({itemSlot, from: event.from.id, to: event.to.id})

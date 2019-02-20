@@ -26,7 +26,7 @@ export const mutations = {
 }
 
 export const actions = {
-  async init({commit}, params){   
+  async init({commit}){   
     await this.$axios.get(`/item_slots`).then(response => {
       let itemSlots = unpackResponse(response.data)
       commit('updateField', {path: 'collection', value: itemSlots })
@@ -38,7 +38,11 @@ export const actions = {
   },
   submit({commit}, {itemSlot}){
     let saveItemSlot = (response)=>{
-      let itemSlot = response.data.data.attributes
+      let responseData = response.data.data
+      let itemSlot = {
+        ...responseData.attributes, 
+        item: responseData.relationships.item.data
+      }
       commit('update', {itemSlot})
     }
     if (itemSlot.id == 0){

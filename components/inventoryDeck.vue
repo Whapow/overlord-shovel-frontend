@@ -30,7 +30,8 @@
     flex-direction: column
   }
   .portrait-tabs {
-    flex-direction: row
+    flex-direction: row;
+    justify-content: space-around
   }
   .portrait {
     min-width: 5rem;

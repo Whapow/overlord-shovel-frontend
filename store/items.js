@@ -26,10 +26,8 @@ export const mutations = {
 }
 
 export const actions = {
-  async init({commit}, params){
-    let campaignId = Number(params.campaign_id)
-    commit('updateField', {path: 'campaignId', value: campaignId })    
-    await this.$axios.get(`/campaigns/${campaignId}/items`).then(response => {
+  async init({commit}){  
+    await this.$axios.get(`/items`).then(response => {
       let items = unpackResponse(response.data)
       commit('updateField', {path: 'collection', value: items })
     })

@@ -1,6 +1,7 @@
 <template lang='pug'>
-  .item-slot(v-if="itemSlot")
-    p(v-if="item") {{ item.name }} x {{ itemSlot.quantity}}
+  li.item-slot.container(v-if="itemSlot")
+    p(v-if="item") {{ item.name }} 
+    p.quantity {{ itemSlot.quantity}}
 </template>
 
 <script>
@@ -22,7 +23,6 @@
       if (this.itemSlot.id == 0){this.setEditing(true)}
     },
     computed: {
-      ...mapFields(['campaignId']),
       ...mapGetters({ 
         currentUser: 'session/currentUser',
         itemSlots: 'itemSlots/collection',
@@ -73,6 +73,11 @@
 
 <style lang="scss" scoped>
 .item-slot {
-  border-style: solid
+  border-style: solid;
+}
+.quantity {
+  align-self: flex-end;
+  justify-self: flex-end;
+  color: grey;
 }
 </style>

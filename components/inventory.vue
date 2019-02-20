@@ -3,8 +3,7 @@
     .container.inventory(v-if="inventory")
       h4 {{ inventory.name }}
       //- p {{ inventory | totalValue }}g
-      draggable.draggable(@end="moveItem",
-        :value="inventory.item_slots", :options="{group: 'itemSlots'}", :id="inventory.id" )
+      draggable.container.draggable(@end="moveItem", :value="inventory.item_slots", :options="{group: 'itemSlots'}", :id="inventory.id" )
         item-slot.item(v-for="itemSlot in inventory.item_slots", v-if="itemSlots[itemSlot.id]", 
           :key="itemSlot.id", :id="itemSlot.id", :itemSlotReference="itemSlot")
 </template>
@@ -35,7 +34,6 @@
       }),
       moveItem(event){
         if (event.from != event.to){
-          console.log(this.itemSlots[event.item.id])
           let {...itemSlot} = this.itemSlots[event.item.id]
           itemSlot.inventory_id = event.to.id
           this.transferItem({itemSlot, from: event.from.id, to: event.to.id})
@@ -58,8 +56,20 @@
 
 <style lang="scss" scoped>
   .draggable {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+  .item {
     min-height: 5rem;
-    min-width: 10rem;
+    min-width: 5rem;
+    max-height: 5rem;
+    max-width: 5rem;
+  }
+  .inventory {
+    flex-direction: column;
   }
 
 </style>

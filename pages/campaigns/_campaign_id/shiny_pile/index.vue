@@ -14,9 +14,6 @@
 <script>
   import { mapActions, mapMutations, mapGetters } from 'vuex'
   import { createHelpers } from 'vuex-map-fields'
-  const { mapFields } = createHelpers({
-    getterType: 'items/getField'
-  }) 
 
   import _ from 'lodash'
   import itemRow from '~/components/itemRow'
@@ -29,7 +26,8 @@
       this.init(this.$route.params);
       this.loadCharacters(this.$route.params)
       this.loadInventories(this.$route.params)
-      this.loadItemSlots(this.$route.params)
+      this.loadItemSlots()
+      this.loadItems()
     },
     components: { itemRow, inventory, inventoryDeck },
     computed: {
@@ -40,9 +38,8 @@
         inventories: 'inventories/collection',
         itemSlots: 'itemSlots/collection',
       }),
-      ...mapFields(['campaignId', 'collection']),
       itemList(){ return _.groupBy(this.items, 'character_id') },
-      campaign(){ return this.campaigns[this.campaignId] || {} },
+      campaign(){ return this.campaigns[this.$route.params.campaign_id] || {} },
     },
     filters: {
       totalValue(collection){ 
@@ -67,7 +64,8 @@
         submitItem: 'items/submit',
         loadCharacters: 'characters/init',
         loadInventories: 'inventories/init',
-        loadItemSlots: 'itemSlots/init'
+        loadItemSlots: 'itemSlots/init',
+        loadItems: 'items/init'
       }),
     }, 
   }
@@ -77,6 +75,12 @@
 .shiny-pile {
   width: 100%;
   flex-direction: column;
+}
+.info-header {
+  justify-content: space-between;
+}
+.body {
+  justify-content: space-between;
 }
 .campaign-title {
   min-width: 10rem

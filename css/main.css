@@ -1,3 +1,11 @@
-.container {
+.flex {
   display: flex;
+  border-style: solid;
+  border-color: red;
+}
+
+.grid {
+  display: grid;
+  border-style: solid;
+  border-color: green;
 }

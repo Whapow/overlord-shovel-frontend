@@ -1,5 +1,5 @@
 <template lang='pug'>
-  li.item-slot.container(v-if="itemSlot")
+  li.item-slot.grid(v-if="itemSlot")
     p(v-if="item") {{ item.name }} 
     p.quantity {{ itemSlot.quantity}}
 </template>
@@ -73,11 +73,13 @@
 
 <style lang="scss" scoped>
 .item-slot {
-  border-style: solid;
+  border-color: black;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
 }
 .quantity {
-  align-self: flex-end;
-  justify-self: flex-end;
+  grid-column: 2;
+  grid-row: 2;
   color: grey;
 }
 </style>

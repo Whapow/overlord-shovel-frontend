@@ -1,9 +1,9 @@
 <template lang="pug">
   .inventory-panel
-    .container.inventory(v-if="inventory")
+    .panel(v-if="inventory")
       h4 {{ inventory.name }}
       //- p {{ inventory | totalValue }}g
-      draggable.container.draggable(@end="moveItem", :value="inventory.item_slots", :options="{group: 'itemSlots'}", :id="inventory.id" )
+      draggable.grid.inventory(@end="moveItem", :value="inventory.item_slots", :options="{group: 'itemSlots'}", :id="inventory.id" )
         item-slot.item(v-for="itemSlot in inventory.item_slots", v-if="itemSlots[itemSlot.id]", 
           :key="itemSlot.id", :id="itemSlot.id", :itemSlotReference="itemSlot")
 </template>
@@ -55,21 +55,18 @@
 </script>
 
 <style lang="scss" scoped>
-  .draggable {
+  .inventory {
     padding: 0;
     margin: 0;
-    list-style: none;
-    justify-content: flex-start;
-    flex-wrap: wrap;
+    grid-template-rows: repeat(5, 1fr);
+    grid-template-columns: repeat(5, 1fr);
+
   }
   .item {
     min-height: 5rem;
     min-width: 5rem;
     max-height: 5rem;
     max-width: 5rem;
-  }
-  .inventory {
-    flex-direction: column;
   }
 
 </style>

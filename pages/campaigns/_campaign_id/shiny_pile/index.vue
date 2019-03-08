@@ -1,11 +1,11 @@
 <template lang='pug'>
-  #shiny-pile.container.shiny-pile
-    .container.info-header
+  #shiny-pile.flex.shiny-pile
+    .flex.info-header
       router-link.btn.btn-light(:to="`/`") Back to Campaigns
       h2.campaign-title {{ campaign.name }}
       i Drag items to move them to a different inventory.
       //- p Total: {{ items | totalValue }}
-    .container.body
+    .flex.body
       inventory(v-for="inventory in campaign.inventories", 
         :key="inventory.id", :inventoryReference="inventory", :owner="campaign")
       inventory-deck(:characterCollection="characters(campaign.id)" )

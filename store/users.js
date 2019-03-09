@@ -34,7 +34,7 @@ export const actions = {
       commit('update', {user})
     }
     if (user.id == 0){
-      this.$axios.post('/users', user).then(response => {
+      this.$axios.post('/users', {user}).then(response => {
         saveUser(response)
         commit('updateField', {path: 'errors', value: {} })
         this.$router.push('/login')

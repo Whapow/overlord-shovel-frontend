@@ -18,10 +18,10 @@ export const mutations = {
 
 export const actions = {
   async login({commit}, loginParams){
-    await this.$axios.post('/login', {session: loginParams}).then(response => {
+    await this.$auth.loginWith('local', {data: {session: loginParams}}).then(response => {
       let user = response.data.data.attributes
       commit('updateField', {path: 'currentUser', value: user})
-      this.$router.push('/')
+      // this.$router.push('/')
     }).catch(response => {
       commit('updateField', {path: 'errorMessage', value: 'Could not login'})
     })

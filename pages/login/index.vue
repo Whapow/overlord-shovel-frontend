@@ -4,15 +4,15 @@
     i.red {{ errorMessage }}
     .form-group
       label Username
-      input.form-control(type='text', v-model="formData.display_name")
+      input.form-control(type='text', v-model="formData.username", @keyup.enter="submitLogin")
     .form-group
-      .d-flex.justify-content-between
-        label Password
-        a.text-secondary(href="#") Forgot password?
-      input.form-control(type='password', v-model.password="formData.password", :disabled="true")
+      label Password
+      input.form-control(type='password', v-model.password="formData.password", @keyup.enter="submitLogin")
     .form-group.form-check
-      input.form-check-input(type='checkbox', id="checkbox")
-      label.form-check-label(for="checkbox") Remember Me
+      .d-flex.justify-content-between
+        input.form-check-input(type='checkbox', id="checkbox")
+        label.form-check-label(for="checkbox") Remember Me
+        a.text-secondary(href="#") Forgot password?
     .form-group
       button.btn.btn-dark.btn-block(@click="submitLogin") Sign in
     .form-group
@@ -27,6 +27,7 @@
     getterType: 'session/getField'
   }) 
   export default {
+    auth: false,
     data(){
       return {
         formData: {},
@@ -35,7 +36,7 @@
     computed: mapFields(['errorMessage']),
     methods: {
       submitLogin(){
-        if (this.formData.display_name) {
+        if (this.formData.username) {
           this.login(this.formData)
         }
       },

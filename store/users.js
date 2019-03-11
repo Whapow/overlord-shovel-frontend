@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import { getField, updateField } from 'vuex-map-fields'
+import { unpackResponse } from '~/helpers/helpers'
 
 export const state = function(){
   return ({
@@ -24,13 +25,13 @@ export const mutations = {
 export const actions = {
   async init({commit}){
     await this.$axios.get('/users').then(response => {
-      let users = Object.assign({}, ...response.data.data.map(u => {return {[u.id]: u.attributes} }) )
+      let users = unpackResponse(response.data)
       commit('updateField', {path: 'collection', value: users })
     })
   },
   submit({commit}, {user}){
     let saveUser = (response)=>{
-      let user = response.data.data.attributes
+      let user = unpackResponse(response.data)
       commit('update', {user})
     }
     if (user.id == 0){

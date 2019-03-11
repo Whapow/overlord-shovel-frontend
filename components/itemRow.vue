@@ -43,7 +43,7 @@
     computed: {
       ...mapFields(['campaignId']),
       ...mapGetters({campaigns: 'campaigns/collection', session: 'session/session'}),
-      campaign(){ return this.campaigns[this.campaignId] }
+      campaign(){ return this.campaigns[this.campaignId] || {} }
     },
     methods: {
       setEditing(value){

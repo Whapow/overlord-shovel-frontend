@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import _ from 'lodash'
 import { getField, updateField } from 'vuex-map-fields'
+import { unpackResponse } from '~/helpers/helpers'
 
 export const state = function(){
   return ({
@@ -29,7 +30,7 @@ export const actions = {
     let journalId = Number(params.journal_id)
     commit('updateField', {path: 'journalId', value: journalId })
     await this.$axios.get(`/journals/${journalId}/entries`).then(response => {
-      let entries = Object.assign({}, ...response.data.data.map(e => {return {[e.id]: e.attributes} }) )
+      let entries = unpackResponse(response.data)
       commit('updateField', {path: 'collection', value: entries })
     })
   },

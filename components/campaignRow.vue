@@ -48,7 +48,7 @@
         else { this.formData = null }
       },
       playerName(id){
-        return ({...this.users[id]}).name
+        return ({...this.users[id]}).username
       },
       ...mapMutations({
         updateCampaign: 'campaigns/update',

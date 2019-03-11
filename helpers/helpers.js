@@ -6,7 +6,7 @@ export const unpackResponse = ({data}, collection = false) => {
   }
 }
 
-const flattenRelationships = (relationships) => {
+const flattenRelationships = (relationships = {}) => {
   let obj = {}
   for (let key of Object.keys(relationships)){
     obj[key] = relationships[key]['data']

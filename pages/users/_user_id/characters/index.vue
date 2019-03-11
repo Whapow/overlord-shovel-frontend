@@ -9,7 +9,7 @@
           th(colspan="2") Campaign
       tbody
         character-row(v-for="character in characters[userId]", :key="character.id", :character="character")
-        tr(v-if="user.id && currentUser.id == user.id")
+        tr(v-if="user.id && session.user.id == user.id")
           td(colspan="3")
             a(href="#", @click.prevent="newCharacter(userId)") Add New
 </template>
@@ -37,7 +37,7 @@
       })
     },
     computed:{
-      ...mapGetters({characters: 'characters/byPlayer', users: 'users/collection', currentUser: 'session/currentUser'}),
+      ...mapGetters({characters: 'characters/byPlayer', users: 'users/collection', session: 'session/session'}),
       user(){ return this.users[this.userId] || {} }
     },
     created(){

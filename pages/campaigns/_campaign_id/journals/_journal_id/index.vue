@@ -11,7 +11,7 @@
           th
       tbody
         journal-entry-row(v-for="entry in entries", :key="entry.id", :entry="entry")
-        tr(v-if="campaign.gm_id && currentUser.id == campaign.gm_id")
+        tr(v-if="campaign.gm_id && session.user.id == campaign.gm_id")
           td(colspan="4")
             button.btn.btn-light(@click="newEntry") Add New  
 </template>
@@ -28,7 +28,7 @@
       }
     },
     computed: {
-      ...mapGetters({entries: 'entries/collection', journals: 'journals/collection', campaigns: 'campaigns/collection', currentUser: 'session/currentUser'}),
+      ...mapGetters({entries: 'entries/collection', journals: 'journals/collection', campaigns: 'campaigns/collection', session: 'session/session'}),
       journal(){ return this.journals[this.journalId] || {} },
       campaign(){ return this.campaigns[this.campaignId] || {} }
     },

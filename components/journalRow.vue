@@ -10,7 +10,7 @@
       td
         router-link(:to="`/campaigns/${campaignId}/journals/${journal.id}/`") {{ journal.name }}
       td
-        template(v-if="currentUser.id == campaign.gm_id")
+        template(v-if="session.user.id == campaign.gm_id")
           button.btn.btn-light(@click="setEditing(true)") Edit
           button.btn.btn-danger(@click="confirmDelete") Delete
 </template>
@@ -30,7 +30,7 @@
     },
     computed: {
       ...mapGetters({
-        currentUser: 'session/currentUser',
+        session: 'session/session',
         campaigns: 'campaigns/collection',
       }),
       campaign(){ return this.campaigns[this.campaignId] }

@@ -1,6 +1,6 @@
 export const unpackResponse = ({data}, collection = false) => {
-  if (typeof data === 'Array') {
-    return Object.assign({}, ...data.map(obj => {return {[obj.id]: unpackResponse({data: obj}, false)} }) )
+  if (Array.isArray(data)) {
+    return Object.assign({}, ...data.map(obj => {return {[obj.id]: unpackResponse({data: obj})} }) )
   } else {
     return Object.assign({}, {...data.attributes, ...flattenRelationships(data.relationships)})
   }

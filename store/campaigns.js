@@ -30,7 +30,7 @@ export const actions = {
     })
   },
   new({commit, rootState}){
-    let campaign = {id: 0, name: null, gm_id: rootState.session.currentUser.id}
+    let campaign = {id: 0, name: null, gm_id: rootState.session.session.user.id}
     commit('update', {campaign})
   },
   submit({commit}, {campaign}){

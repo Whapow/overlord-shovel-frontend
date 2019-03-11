@@ -6,7 +6,6 @@ export const state = function(){
   return ({
     campaignId: null,
     collection: {},
-    currentUser: {},
   })
 }
 

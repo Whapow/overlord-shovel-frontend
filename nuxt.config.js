@@ -9,6 +9,12 @@ module.exports = {
     port: 3001
   },
   auth: {
+    cookie: {
+      prefix: 'auth.',
+      options: {
+        path: '/'
+      }
+    },
     redirect: {
       login: '/login',
       logout: '/',
@@ -18,13 +24,11 @@ module.exports = {
     strategies: {
       local: {
         endpoints: {
-          login: {url: '/login', method: 'post', propertyName: 'token'},
+          login: {url: '/login', method: 'post', propertyName: 'data.attributes.token'},
           logout: {url: '/logout', method: 'delete'},
+          user: false
         }
       }
-    },
-    token: {
-      prefix: '_token.'
     }
   },
   router: {

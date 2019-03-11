@@ -19,7 +19,7 @@
         p {{ item.value }}
       td
         button.btn.btn-light(@click="setEditing(true)") Edit
-        button.btn.btn-danger(v-if="currentUser.id == campaign.gm_id", @click="confirmDelete") Delete
+        button.btn.btn-danger(v-if="session.user.id == campaign.gm_id", @click="confirmDelete") Delete
 </template>
 
 <script>
@@ -42,7 +42,7 @@
     },
     computed: {
       ...mapFields(['campaignId']),
-      ...mapGetters({campaigns: 'campaigns/collection', currentUser: 'session/currentUser'}),
+      ...mapGetters({campaigns: 'campaigns/collection', session: 'session/session'}),
       campaign(){ return this.campaigns[this.campaignId] }
     },
     methods: {

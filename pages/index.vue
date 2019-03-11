@@ -9,7 +9,7 @@
           th
       tbody
         campaign-row(v-for="campaign in campaigns", :key="campaign.id", :campaign="campaign")
-        tr(v-if="currentUser.id")
+        tr(v-if="$auth.loggedIn")
           td(colspan="4")
             a(href="#", @click.prevent="newCampaign") Add New
 </template>
@@ -22,7 +22,7 @@
   export default {
     layout: 'default',
     components: {campaignRow},
-    computed: mapGetters({campaigns: 'campaigns/collection', currentUser: 'session/currentUser'}),
+    computed: mapGetters({campaigns: 'campaigns/collection', session: 'session/session'}),
     methods: mapActions({newCampaign: 'campaigns/new'})
   }
 </script>

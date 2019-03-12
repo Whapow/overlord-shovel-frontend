@@ -1,7 +1,7 @@
 <template lang="pug">
   .characters
     router-link.btn.btn-light(:to="`/`") Back to Campaigns
-    h3 {{ user.display_name }} - Characters
+    h3 {{ user.username }} - Characters
     table.table.table-hover
       thead
         tr
@@ -9,7 +9,7 @@
           th(colspan="2") Campaign
       tbody
         character-row(v-for="character in characters[userId]", :key="character.id", :character="character")
-        tr(v-if="user.id && currentUser.id == user.id")
+        tr(v-if="user.id && session.user.id == user.id")
           td(colspan="3")
             a(href="#", @click.prevent="newCharacter(userId)") Add New
 </template>
@@ -37,7 +37,11 @@
       })
     },
     computed:{
-      ...mapGetters({characters: 'characters/byPlayer', users: 'users/collection', currentUser: 'session/currentUser'}),
+      ...mapGetters({
+        characters: 'characters/byPlayer', 
+        users: 'users/collection', 
+        session: 'session'
+      }),
       user(){ return this.users[this.userId] || {} }
     },
     created(){

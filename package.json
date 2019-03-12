@@ -1,7 +1,7 @@
 {
     "name": "overlord-shovel",
     "engines": {
-      "node":"9.11.1"
+        "node": "9.11.1"
     },
     "scripts": {
         "dev": "HOST=0.0.0.0 nuxt",
@@ -10,6 +10,7 @@
         "heroku-postbuild": "yarn build"
     },
     "dependencies": {
+        "@nuxtjs/auth": "^4.5.3",
         "@nuxtjs/axios": "^5.3.1",
         "bootstrap-vue": "^2.0.0-rc.11",
         "lodash": "^4.17.10",

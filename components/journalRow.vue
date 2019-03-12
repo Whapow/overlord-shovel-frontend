@@ -2,7 +2,7 @@
   tr.journal
     template(v-if="editing")
       td.column
-        input(type='text', v-model.trim="formData.name")
+        input(type='text', v-model.trim="formData.name", @keyup.enter="save")
       td
         button.btn.btn-primary(@click="save") Save
         button.btn.btn-light(@click="cancel") Cancel
@@ -10,7 +10,7 @@
       td
         router-link(:to="`/campaigns/${campaignId}/journals/${journal.id}/`") {{ journal.name }}
       td
-        template(v-if="currentUser.id == campaign.gm_id")
+        template(v-if="session.user.id == campaign.gm_id")
           button.btn.btn-light(@click="setEditing(true)") Edit
           button.btn.btn-danger(@click="confirmDelete") Delete
 </template>
@@ -30,7 +30,7 @@
     },
     computed: {
       ...mapGetters({
-        currentUser: 'session/currentUser',
+        session: 'session',   
         campaigns: 'campaigns/collection',
       }),
       campaign(){ return this.campaigns[this.campaignId] }

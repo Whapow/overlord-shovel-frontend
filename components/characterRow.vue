@@ -14,7 +14,7 @@
       td {{ character.name }}
       td {{ campaign.name }}
       td
-        template(v-if="currentUser.id == user.id")
+        template(v-if="session.user.id == user.id")
           button.btn.btn-light(@click="setEditing(true)") Edit
           button.btn.btn-danger(@click="confirmDelete") Delete
 </template>
@@ -34,7 +34,7 @@
     },
     computed: {
       ...mapGetters({
-        currentUser: 'session/currentUser',
+        session: 'session',
         campaigns: 'campaigns/collection',
         users: 'users/collection'
       }),

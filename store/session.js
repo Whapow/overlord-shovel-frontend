@@ -1,15 +1,15 @@
 import { getField, updateField } from 'vuex-map-fields'
+import { unpackResponse } from '~/helpers/helpers'
 
 export const state = function(){
   return ({
-    currentUser: {},
+    session: {},
     errorMessage: null
   })
 }
 
 export const getters = {
   getField,
-  currentUser: state => { return state.currentUser }
 }
 
 export const mutations = {
@@ -18,18 +18,24 @@ export const mutations = {
 
 export const actions = {
   async login({commit}, loginParams){
-    await this.$axios.post('/login', {session: loginParams}).then(response => {
-      let user = response.data.data.attributes
-      commit('updateField', {path: 'currentUser', value: user})
+    await this.$auth.loginWith('local', {data: {session: loginParams}})
+    .then(() => {
       this.$router.push('/')
-    }).catch(response => {
+    }).catch(e => {
       commit('updateField', {path: 'errorMessage', value: 'Could not login'})
     })
   },
-
+  
+  get({commit}){
+    this.$axios.get('/session').then(response => {
+      let session = unpackResponse(response.data)
+      commit('updateField', {path: 'session', value: session})      
+    })
+  },
+  
   async logout({commit}){
-    await this.$axios.delete('/logout').then(response => {
-      commit('updateField', {path: 'currentUser', value: null})
+    await this.$auth.logout().then(response => {
+      commit('updateField', {path: 'session', value: {}})
     })
   }
 }

@@ -3,13 +3,13 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-const _5e75dbe8 = () => import('../pages/login/index.vue' /* webpackChunkName: "pages/login/index" */).then(m => m.default || m)
-const _c2ad1888 = () => import('../pages/users/new/index.vue' /* webpackChunkName: "pages/users/new/index" */).then(m => m.default || m)
-const _68697812 = () => import('../pages/campaigns/_campaign_id/journals/index.vue' /* webpackChunkName: "pages/campaigns/_campaign_id/journals/index" */).then(m => m.default || m)
-const _2462fde5 = () => import('../pages/users/_user_id/characters/index.vue' /* webpackChunkName: "pages/users/_user_id/characters/index" */).then(m => m.default || m)
-const _75734b6a = () => import('../pages/campaigns/_campaign_id/journals/_journal_id/index.vue' /* webpackChunkName: "pages/campaigns/_campaign_id/journals/_journal_id/index" */).then(m => m.default || m)
-const _71442c4d = () => import('../pages/campaigns/_campaign_id/shiny_pile/index.vue' /* webpackChunkName: "pages/campaigns/_campaign_id/shiny_pile/index" */).then(m => m.default || m)
-const _e542f99c = () => import('../pages/index.vue' /* webpackChunkName: "pages/index" */).then(m => m.default || m)
+const _4ad4109d = () => import('../pages/login/index.vue' /* webpackChunkName: "pages/login/index" */).then(m => m.default || m)
+const _6504c1cd = () => import('../pages/users/new/index.vue' /* webpackChunkName: "pages/users/new/index" */).then(m => m.default || m)
+const _d4398170 = () => import('../pages/campaigns/_campaign_id/journals/index.vue' /* webpackChunkName: "pages/campaigns/_campaign_id/journals/index" */).then(m => m.default || m)
+const _1cabec14 = () => import('../pages/users/_user_id/characters/index.vue' /* webpackChunkName: "pages/users/_user_id/characters/index" */).then(m => m.default || m)
+const _7840558a = () => import('../pages/campaigns/_campaign_id/journals/_journal_id/index.vue' /* webpackChunkName: "pages/campaigns/_campaign_id/journals/_journal_id/index" */).then(m => m.default || m)
+const _154a975e = () => import('../pages/campaigns/_campaign_id/shiny_pile/index.vue' /* webpackChunkName: "pages/campaigns/_campaign_id/shiny_pile/index" */).then(m => m.default || m)
+const _03f00283 = () => import('../pages/index.vue' /* webpackChunkName: "pages/index" */).then(m => m.default || m)
 
 
 
@@ -71,37 +71,37 @@ export function createRouter () {
     routes: [
 		{
 			path: "/login",
-			component: _5e75dbe8,
+			component: _4ad4109d,
 			name: "login"
 		},
 		{
 			path: "/users/new",
-			component: _c2ad1888,
+			component: _6504c1cd,
 			name: "users-new"
 		},
 		{
 			path: "/campaigns/:campaign_id?/journals",
-			component: _68697812,
+			component: _d4398170,
 			name: "campaigns-campaign_id-journals"
 		},
 		{
 			path: "/users/:user_id?/characters",
-			component: _2462fde5,
+			component: _1cabec14,
 			name: "users-user_id-characters"
 		},
 		{
 			path: "/campaigns/:campaign_id?/journals/:journal_id",
-			component: _75734b6a,
+			component: _7840558a,
 			name: "campaigns-campaign_id-journals-journal_id"
 		},
 		{
 			path: "/campaigns/:campaign_id?/shiny:pile?",
-			component: _71442c4d,
+			component: _154a975e,
 			name: "campaigns-campaign_id-shinypile"
 		},
 		{
 			path: "/",
-			component: _e542f99c,
+			component: _03f00283,
 			name: "index"
 		}
     ],

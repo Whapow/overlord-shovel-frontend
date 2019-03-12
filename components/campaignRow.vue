@@ -2,7 +2,7 @@
   tr.campaign
     template(v-if="editing")
       td.column
-        input(type='text', v-model.trim="formData.name")
+        input(type='text', v-model.trim="formData.name", @keyup.enter="save")
       td
       td
       td
@@ -15,7 +15,7 @@
         router-link.btn.btn-light(:to="`/campaigns/${campaign.id}/journals`") Journals
         router-link.btn.btn-light(:to="`/campaigns/${campaign.id}/shiny_pile`") Shiny Pile
       td
-        template(v-if="currentUser.id == campaign.gm_id")
+        template(v-if="session.user == campaign.gm_id")
           button.btn.btn-light(@click="setEditing(true)") Edit
           button.btn.btn-danger(@click="confirmDelete") Delete
 </template>
@@ -34,7 +34,7 @@
     },
     computed: {
       ...mapGetters({
-        currentUser: 'session/currentUser',
+        session: 'session',
         users: 'users/collection',
       }),
     },
@@ -48,7 +48,7 @@
         else { this.formData = null }
       },
       playerName(id){
-        return ({...this.users[id]}).name
+        return ({...this.users[id]}).username
       },
       ...mapMutations({
         updateCampaign: 'campaigns/update',

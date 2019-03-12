@@ -8,7 +8,7 @@
           th(colspan="2") Journal Name
       tbody
         journal-row(v-for="journal in journals", :key="journal.id", :journal="journal")
-        tr(v-if="campaign.gm_id && currentUser.id == campaign.gm_id")
+        tr(v-if="campaign.gm_id && session.user.id == campaign.gm_id")
           td(colspan="2")
             a(href="#", @click.prevent="newJournal") Add New
 </template>
@@ -36,7 +36,11 @@
       })
     },
     computed:{
-      ...mapGetters({journals: 'journals/collection', campaigns: 'campaigns/collection', currentUser: 'session/currentUser'}),
+      ...mapGetters({
+        journals: 'journals/collection', 
+        campaigns: 'campaigns/collection', 
+        session: 'session'
+      }),
       campaign(){ return this.campaigns[this.campaignId] || {} }
     },
     created(){

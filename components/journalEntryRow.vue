@@ -6,9 +6,9 @@
           option(:value="null") Please Select
           option(v-for="character in characters[campaignId]", :value="character.id") {{ character.name }}
       td.column
-        input(type='text', v-model.number="formData.reward")
+        input(type='text', v-model.number="formData.reward", @keyup.enter="save")
       td.column
-        input(type='text', v-model.number="formData.experience")
+        input(type='text', v-model.number="formData.experience", @keyup.enter="save")
       td
         button.btn.btn-primary(@click="save") Save
         button.btn.btn-light(@click="cancel") Cancel
@@ -20,7 +20,7 @@
       td.column
         p {{ entry.experience }}
       td
-        template(v-if="currentUser.id == campaign.gm_id")
+        template(v-if="session.user.id == campaign.gm_id")
           button.btn.btn-light(@click="setEditing(true)") Edit
           button.btn.btn-danger(@click="confirmDelete") Delete
 </template>
@@ -40,7 +40,7 @@
     },
     computed: {
       ...mapGetters({
-        currentUser: 'session/currentUser',
+        session: 'session',
         campaigns: 'campaigns/collection',
         characters: 'characters/byCampaign',
       }),

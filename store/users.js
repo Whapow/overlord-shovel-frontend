@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import { getField, updateField } from 'vuex-map-fields'
+import { unpackResponse } from '~/helpers/helpers'
 
 export const state = function(){
   return ({
@@ -24,23 +25,28 @@ export const mutations = {
 export const actions = {
   async init({commit}){
     await this.$axios.get('/users').then(response => {
-      let users = Object.assign({}, ...response.data.data.map(u => {return {[u.id]: u.attributes} }) )
+      let users = unpackResponse(response.data)
       commit('updateField', {path: 'collection', value: users })
     })
   },
-  submit({commit}, {user}){
+  get({commit}, userId){
+    this.$axios.get(`/users/${userId}`).then(response => {
+      let user = unpackResponse(response.data)
+      commit('update', {user})
+    })
+  },
+  submit({commit}, {user, callback}){
     let saveUser = (response)=>{
-      let user = response.data.data.attributes
+      let user = unpackResponse(response.data)
       commit('update', {user})
     }
-    if (user.id == 0){
-      this.$axios.post('/users', user).then(response => {
-        saveUser(response)
-        commit('updateField', {path: 'errors', value: {} })
-        this.$router.push('/login')
-      }).catch( error => {
-        commit('updateField', {path: 'errors', value: error.response.data })
-      })
-    }
+    let request = (user.id == 0 ? this.$axios.post('/users', {user}) : this.$axios.patch(`/users/${user.id}`, {user}) )
+    request.then(response => {
+      saveUser(response)
+      commit('updateField', {path: 'errors', value: {} })
+      callback()
+    }).catch( error => {
+      commit('updateField', {path: 'errors', value: error.response.data })
+    })
   }
 }

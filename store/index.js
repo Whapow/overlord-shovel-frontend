@@ -8,6 +8,10 @@ export const state = function(){
 
 export const getters = {
   getField,
+  session: state => { return {
+    active: state.auth.loggedIn, 
+    user: state.auth.user
+  }},
 }
 
 export const mutations = {

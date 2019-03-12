@@ -2,7 +2,7 @@
   tr.journal
     template(v-if="editing")
       td.column
-        input(type='text', v-model.trim="formData.name")
+        input(type='text', v-model.trim="formData.name", @keyup.enter="save")
       td
         button.btn.btn-primary(@click="save") Save
         button.btn.btn-light(@click="cancel") Cancel
@@ -30,7 +30,7 @@
     },
     computed: {
       ...mapGetters({
-        session: 'session/session',
+        session: 'session',   
         campaigns: 'campaigns/collection',
       }),
       campaign(){ return this.campaigns[this.campaignId] }

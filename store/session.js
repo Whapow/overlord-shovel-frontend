@@ -10,7 +10,6 @@ export const state = function(){
 
 export const getters = {
   getField,
-  session: state => { return state.session }
 }
 
 export const mutations = {
@@ -19,10 +18,10 @@ export const mutations = {
 
 export const actions = {
   async login({commit}, loginParams){
-    await this.$auth.loginWith('local', {data: {session: loginParams}}).then(response => {
-      let session = unpackResponse(response.data)
-      commit('updateField', {path: 'session', value: session})
-    }).catch(response => {
+    await this.$auth.loginWith('local', {data: {session: loginParams}})
+    .then(() => {
+      this.$router.push('/')
+    }).catch(e => {
       commit('updateField', {path: 'errorMessage', value: 'Could not login'})
     })
   },

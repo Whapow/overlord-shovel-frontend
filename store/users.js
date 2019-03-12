@@ -29,6 +29,12 @@ export const actions = {
       commit('updateField', {path: 'collection', value: users })
     })
   },
+  get({commit}, userId){
+    this.$axios.get(`/users/${userId}`).then(response => {
+      let user = unpackResponse(response.data)
+      commit('update', {user})
+    })
+  },
   submit({commit}, {user}){
     let saveUser = (response)=>{
       let user = unpackResponse(response.data)

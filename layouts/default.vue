@@ -4,7 +4,7 @@
       router-link.navbar-brand(to="/") Overlord Shovel
       ul.navbar-nav
         li.nav-item.active
-          router-link.nav-link(v-if="session.user", :to="`/users/${session.user.id}/characters`") My Characters 
+          router-link.nav-link(v-if="session.active", :to="`/users/${session.user.id}/characters`") My Characters 
           router-link.nav-link(v-else, to="/login") Sign in
     .container      
       nuxt
@@ -14,13 +14,12 @@
 import { mapActions, mapGetters } from 'vuex'
 export default {
   created(){
-    if (this.$auth.loggedIn){
-      this.getSession()
+    if (this.session.active){
       this.loadCampaigns()
       this.loadUsers()
     }
   },
-  computed: mapGetters({session: 'session/session'}),
-  methods: mapActions({getSession: 'session/get', loadCampaigns: 'campaigns/init', loadUsers: 'users/init'})
+  computed: mapGetters({session: 'session', }),
+  methods: mapActions({loadCampaigns: 'campaigns/init', loadUsers: 'users/init'})
 }
 </script>

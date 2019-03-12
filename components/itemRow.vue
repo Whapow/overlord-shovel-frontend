@@ -42,7 +42,10 @@
     },
     computed: {
       ...mapFields(['campaignId']),
-      ...mapGetters({campaigns: 'campaigns/collection', session: 'session/session'}),
+      ...mapGetters({
+        campaigns: 'campaigns/collection', 
+        session: 'session'
+        }),
       campaign(){ return this.campaigns[this.campaignId] || {} }
     },
     methods: {

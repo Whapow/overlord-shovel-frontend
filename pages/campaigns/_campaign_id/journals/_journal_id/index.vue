@@ -28,7 +28,12 @@
       }
     },
     computed: {
-      ...mapGetters({entries: 'entries/collection', journals: 'journals/collection', campaigns: 'campaigns/collection', session: 'session/session'}),
+      ...mapGetters({
+        entries: 'entries/collection', 
+        journals: 'journals/collection', 
+        campaigns: 'campaigns/collection', 
+        session: 'session'
+      }),
       journal(){ return this.journals[this.journalId] || {} },
       campaign(){ return this.campaigns[this.campaignId] || {} }
     },

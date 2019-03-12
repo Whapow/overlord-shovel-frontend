@@ -36,7 +36,11 @@
       })
     },
     computed:{
-      ...mapGetters({journals: 'journals/collection', campaigns: 'campaigns/collection', session: 'session/session'}),
+      ...mapGetters({
+        journals: 'journals/collection', 
+        campaigns: 'campaigns/collection', 
+        session: 'session'
+      }),
       campaign(){ return this.campaigns[this.campaignId] || {} }
     },
     created(){

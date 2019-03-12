@@ -1,7 +1,7 @@
 <template lang="pug">
   .characters
     router-link.btn.btn-light(:to="`/`") Back to Campaigns
-    h3 {{ user.display_name }} - Characters
+    h3 {{ user.username }} - Characters
     table.table.table-hover
       thead
         tr
@@ -37,7 +37,11 @@
       })
     },
     computed:{
-      ...mapGetters({characters: 'characters/byPlayer', users: 'users/collection', session: 'session/session'}),
+      ...mapGetters({
+        characters: 'characters/byPlayer', 
+        users: 'users/collection', 
+        session: 'session'
+      }),
       user(){ return this.users[this.userId] || {} }
     },
     created(){

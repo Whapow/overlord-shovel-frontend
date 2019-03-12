@@ -34,7 +34,7 @@
     },
     computed: {
       ...mapGetters({
-        session: 'session/session',
+        session: 'session',
         campaigns: 'campaigns/collection',
         users: 'users/collection'
       }),

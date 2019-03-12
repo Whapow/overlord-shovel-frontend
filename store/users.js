@@ -35,19 +35,18 @@ export const actions = {
       commit('update', {user})
     })
   },
-  submit({commit}, {user}){
+  submit({commit}, {user, callback}){
     let saveUser = (response)=>{
       let user = unpackResponse(response.data)
       commit('update', {user})
     }
-    if (user.id == 0){
-      this.$axios.post('/users', {user}).then(response => {
-        saveUser(response)
-        commit('updateField', {path: 'errors', value: {} })
-        this.$router.push('/login')
-      }).catch( error => {
-        commit('updateField', {path: 'errors', value: error.response.data })
-      })
-    }
+    let request = (user.id == 0 ? this.$axios.post('/users', {user}) : this.$axios.patch(`/users/${user.id}`, {user}) )
+    request.then(response => {
+      saveUser(response)
+      commit('updateField', {path: 'errors', value: {} })
+      callback()
+    }).catch( error => {
+      commit('updateField', {path: 'errors', value: error.response.data })
+    })
   }
 }

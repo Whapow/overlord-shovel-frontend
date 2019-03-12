@@ -46,7 +46,7 @@
       ...mapActions({submitUser: 'users/submit'}),
       save(){
         if (this.validated){
-          this.submitUser({user: this.formData})
+          this.submitUser({user: this.formData, callback: () => {this.$router.push('/login')}})
         }
       },
     },

@@ -5,28 +5,28 @@
       .form-group
         label First Name 
         i.red {{ errorMessages.first_name | unwrap }}
-        input.form-control(type='text', v-model="formData.first_name")
+        input.form-control(type='text', v-model="formData.first_name", @keyup.enter="save")
       .form-group
         label Last Name 
         i.red {{ errorMessages.last_name | unwrap }}
-        input.form-control(type='text', v-model="formData.last_name")
+        input.form-control(type='text', v-model="formData.last_name", @keyup.enter="save")
       .form-group
         label Username 
         i.red {{ errorMessages.username | unwrap }}
-        input.form-control(type='text', v-model="formData.username")
+        input.form-control(type='text', v-model="formData.username", @keyup.enter="save")
       .form-group
         label Email 
         i.red {{ errorMessages.email | unwrap }}
-        input.form-control(type='text', v-model="formData.email")
+        input.form-control(type='text', v-model="formData.email", @keyup.enter="save")
       .form-group
         label Old Password 
         input.form-control(type='password', v-model="formData.old_password")
       .form-group
         label New Password 
-        input.form-control(type='password', v-model="formData.password")
+        input.form-control(type='password', v-model="formData.password", :disabled="!formData.old_password", @keyup.enter="save")
       .form-group
         label Password Confirmation
-        input.form-control(type='password', v-model="formData.password_confirmation")
+        input.form-control(type='password', v-model="formData.password_confirmation", :disabled="!formData.old_password", @keyup.enter="save")
       .form-group
         button.btn.btn-dark.btn-block(@click="save", :disabled="!validated") Save Changes
         button.btn.btn-dark.btn-block(@click="setEditing(false)") Cancel
@@ -56,12 +56,12 @@
         submitUser: 'users/submit'
       }),
       setEditing(value){
-        if (value){ this.formData = _.cloneDeep(this.item) }
+        if (value){ this.formData = _.cloneDeep(this.user) }
         this.editing = value
       },
       save(){
         if (this.validated){
-          this.submitUser({user: this.formData})
+          this.submitUser({user: this.formData, callback: ()=>{ this.setEditing(false)}})
         }
       },
     },
@@ -75,11 +75,11 @@
         return this.users[this.session.user.id] || {}
       },
       validated(){
+        let form = this.formData
         return ( 
-          this.formData.username && 
-          this.formData.password &&
-          this.formData.password_confirmation === this.formData.password &&
-          this.formData.email
+          form.username && 
+          form.email &&
+          (form.old_password ? (form.password_confirmation === form.password && form.password) : true)
         )
       }
     },

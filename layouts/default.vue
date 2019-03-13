@@ -14,14 +14,7 @@
 import { mapActions, mapGetters } from 'vuex'
 import userDropdown from '~/components/userDropdown'
 export default {
-  created(){
-    if (this.session.active){
-      this.loadCampaigns()
-      this.loadUsers()
-    }
-  },
   components: {userDropdown},
-  computed: mapGetters({session: 'session'}),
-  methods: mapActions({loadCampaigns: 'campaigns/init', loadUsers: 'users/init'})
+  computed: mapGetters({session: 'session'})
 }
 </script>

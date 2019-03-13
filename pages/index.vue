@@ -21,13 +21,17 @@
 
   export default {
     layout: 'default',
+    created(){
+      if (this.session.active){
+        this.loadCampaigns()
+        this.loadUsers()
+      }
+    },
     components: {campaignRow},
     computed: mapGetters({
       campaigns: 'campaigns/collection', 
       session: 'session'
     }),
-    methods: mapActions({newCampaign: 'campaigns/new'})
+    methods: mapActions({loadCampaigns: 'campaigns/init', loadUsers: 'users/init', newCampaign: 'campaigns/new'})
   }
 </script>
-
-

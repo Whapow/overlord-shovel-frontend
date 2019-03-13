@@ -36,6 +36,7 @@ export const actions = {
   async logout({commit}){
     await this.$auth.logout().then(response => {
       commit('updateField', {path: 'session', value: {}})
+      this.$router.push('/login')
     })
   }
 }

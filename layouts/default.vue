@@ -2,16 +2,17 @@
   div
     nav.navbar.navbar-expand.navbar-dark.bg-dark.justify-content-between.mb-3
       router-link.navbar-brand(to="/") Overlord Shovel
-      ul.navbar-nav
+      user-dropdown(v-if="session.active")
+      ul.navbar-nav.dropdown(v-else)
         li.nav-item.active
-          router-link.nav-link(v-if="session.active", :to="`/users/${session.user.id}/characters`") My Characters 
-          router-link.nav-link(v-else, to="/login") Sign in
+          router-link.nav-link(to="/login") Sign in
     .container      
       nuxt
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import userDropdown from '~/components/userDropdown'
 export default {
   created(){
     if (this.session.active){
@@ -19,7 +20,8 @@ export default {
       this.loadUsers()
     }
   },
-  computed: mapGetters({session: 'session', }),
+  components: {userDropdown},
+  computed: mapGetters({session: 'session'}),
   methods: mapActions({loadCampaigns: 'campaigns/init', loadUsers: 'users/init'})
 }
 </script>

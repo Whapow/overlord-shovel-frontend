@@ -26,10 +26,11 @@ export const actions = {
     })
   },
   
-  get({commit}){
+  get({commit, dispatch}){
     this.$axios.get('/session').then(response => {
       let session = unpackResponse(response.data)
-      commit('updateField', {path: 'session', value: session})      
+      commit('updateField', {path: 'session', value: session})
+      dispatch('users/get', session.user_id, {root: true})  
     })
   },
   

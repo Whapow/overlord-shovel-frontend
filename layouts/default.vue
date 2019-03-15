@@ -14,7 +14,13 @@
 import { mapActions, mapGetters } from 'vuex'
 import userDropdown from '~/components/userDropdown'
 export default {
+  created(){
+    if (this.$auth.loggedIn){
+      this.getsession()
+    }
+  },
   components: {userDropdown},
-  computed: mapGetters({session: 'session'})
+  computed: mapGetters({session: 'session'}),
+  methods: mapActions({getsession: 'session/get'})
 }
 </script>

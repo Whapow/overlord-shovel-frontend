@@ -33,6 +33,7 @@
     methods: {
       ...mapActions({
         init: 'characters/init',
+        getCampaigns: 'campaigns/init',
         newCharacter: 'characters/new'
       })
     },
@@ -46,6 +47,7 @@
     },
     created(){
       this.init(this.$route.params);
+      this.getCampaigns();
     }
   }
 </script>

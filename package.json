@@ -1,7 +1,7 @@
 {
     "name": "overlord-shovel",
     "engines": {
-      "node": "9.11.1"
+        "node": "11.12"
     },
     "scripts": {
         "dev": "HOST=0.0.0.0 nuxt",
@@ -21,5 +21,14 @@
         "vuedraggable": "^2.16.0",
         "vuex": "^3.0.1",
         "vuex-map-fields": "^1.2.3"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.3.4",
+        "@vue/test-utils": "^1.0.0-beta.29",
+        "babel-core": "^6.26.3",
+        "babel-jest": "^24.5.0",
+        "jest": "^24.5.0",
+        "jest-serializer-vue": "^2.0.2",
+        "vue-jest": "^3.0.4"
     }
 }

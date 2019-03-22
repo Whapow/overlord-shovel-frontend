@@ -1,7 +1,8 @@
 <template lang='pug'>
   li.item-slot.grid(v-if="itemSlot")
-    p(v-if="item") {{ item.name }} 
-    p.quantity {{ itemSlot.quantity}}
+    p.item-name(v-if="item") {{ item.name }}
+    button.item-menu()
+    p.item-quantity {{ itemSlot.quantity}}
 </template>
 
 <script>
@@ -29,7 +30,7 @@
         items: 'items/collection'
       }),
       itemSlot(){ return this.itemSlots[this.itemSlotReference.id] },
-      item(){ return this.items[this.itemSlot.item.id] }
+      item(){ return this.items[this.itemSlot.item_id] }
     },
     methods: {
       setEditing(value){
@@ -74,12 +75,24 @@
 <style lang="scss" scoped>
 .item-slot {
   border-color: black;
-  grid-template-rows: 1fr 1fr;
-  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(5, 1fr);
+  grid-template-columns: repeat(5, 1fr);
 }
-.quantity {
-  grid-column: 2;
-  grid-row: 2;
+.item-name {
+  grid-column: 1 / 4;
+  grid-row: 1 / 5;
+}
+.item-menu {
+  grid-column: 5;
+  grid-row: 1;
+  width: 1rem;
+  height: 1rem;
+}
+.item-quantity {
+  grid-column: 5;
+  grid-row: 5;
+  text-align: right;
   color: grey;
+  margin-bottom: 0px;
 }
 </style>

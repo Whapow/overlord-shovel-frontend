@@ -10,7 +10,7 @@
       td
         router-link(:to="`/campaigns/${campaignId}/journals/${journal.id}/`") {{ journal.name }}
       td
-        template(v-if="session.user.id == campaign.gm_id")
+        template(v-if="campaign && session.user.id == campaign.gm_id")
           button.btn.btn-light(@click="setEditing(true)") Edit
           button.btn.btn-danger(@click="confirmDelete") Delete
 </template>

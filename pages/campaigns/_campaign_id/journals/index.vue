@@ -8,7 +8,7 @@
           th(colspan="2") Journal Name
       tbody
         journal-row(v-for="journal in journals", :key="journal.id", :journal="journal")
-        tr(v-if="campaign.gm_id && session.user.id == campaign.gm_id")
+        tr(v-if="campaign && session.user.id == campaign.gm_id")
           td(colspan="2")
             a(href="#", @click.prevent="newJournal") Add New
 </template>
@@ -32,6 +32,7 @@
     methods: {
       ...mapActions({
         init: 'journals/init',
+        loadCampaigns: 'campaigns/init',
         newJournal: 'journals/new'
       })
     },
@@ -45,6 +46,7 @@
     },
     created(){
       this.init(this.$route.params);
+      this.loadCampaigns()
     }
   }
 </script>

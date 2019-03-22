@@ -25,6 +25,7 @@
     created(){
       this.init(this.$route.params);
       this.loadCharacters(this.$route.params)
+      this.loadCampaigns(this.$route.params)
       this.loadInventories(this.$route.params)
       this.loadItemSlots()
       this.loadItems()
@@ -62,6 +63,7 @@
         init: 'items/init', 
         addItem:'items/new',
         submitItem: 'items/submit',
+        loadCampaigns: 'campaigns/init',
         loadCharacters: 'characters/init',
         loadInventories: 'inventories/init',
         loadItemSlots: 'itemSlots/init',

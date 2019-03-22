@@ -39,12 +39,14 @@
     },
     created(){
       this.loadEntries(this.$route.params)
+      this.loadCampaigns()
       this.loadCharacters(this.$route.params)
       this.init(this.$route.params)
     },
     methods: {
       ...mapActions({
         loadEntries: 'entries/init', 
+        loadCampaigns: 'campaigns/init', 
         loadCharacters: 'characters/init',
         newEntry: 'entries/new',
         init: 'journals/init'

@@ -12,7 +12,7 @@ export const state = function(){
 
 export const getters = {
   getField,
-  collection: state => { return _.pickBy(state.collection, function(value){return value.campaign_id == state.campaignId})}
+  collection: state => { return state.collection }
 }
 
 export const mutations = {
@@ -26,7 +26,7 @@ export const mutations = {
 }
 
 export const actions = {
-  async init({commit}){  
+  async init({commit}){
     await this.$axios.get(`/items`).then(response => {
       let items = unpackResponse(response.data)
       commit('updateField', {path: 'collection', value: items })

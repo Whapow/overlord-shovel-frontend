@@ -23,7 +23,6 @@
   export default {
     layout: 'default',
     created(){
-      this.init(this.$route.params);
       this.loadCharacters(this.$route.params)
       this.loadCampaigns(this.$route.params)
       this.loadInventories(this.$route.params)
@@ -33,11 +32,11 @@
     components: { itemRow, inventory, inventoryDeck },
     computed: {
       ...mapGetters({
-        items: 'items/collection', 
         campaigns: 'campaigns/collection', 
         characters: 'characters/forCampaign', 
         inventories: 'inventories/collection',
         itemSlots: 'itemSlots/collection',
+        items: 'items/collection',
       }),
       itemList(){ return _.groupBy(this.items, 'character_id') },
       campaign(){ return this.campaigns[this.$route.params.campaign_id] || {} },
@@ -59,15 +58,14 @@
         updateItem: 'items/update',
         removeItem: 'items/remove',
       }),
-      ...mapActions({
-        init: 'items/init', 
-        addItem:'items/new',
-        submitItem: 'items/submit',
+      ...mapActions({ 
         loadCampaigns: 'campaigns/init',
         loadCharacters: 'characters/init',
         loadInventories: 'inventories/init',
         loadItemSlots: 'itemSlots/init',
-        loadItems: 'items/init'
+        loadItems: 'items/init',
+        addItem:'items/new',
+        submitItem: 'items/submit'
       }),
     }, 
   }

@@ -8,6 +8,7 @@
     .flex.body
       inventory(v-for="inventory in campaign.inventories", 
         :key="inventory.id", :inventoryReference="inventory", :owner="campaign")
+      item-slot-panel
       inventory-deck(:characterCollection="characters(campaign.id)" )
 </template>
 
@@ -19,6 +20,7 @@
   import itemRow from '~/components/itemRow'
   import inventory from '~/components/inventory'
   import inventoryDeck from '~/components/inventoryDeck'
+  import itemSlotPanel from '~/components/itemSlotPanel'
 
   export default {
     layout: 'default',
@@ -29,7 +31,7 @@
       this.loadItemSlots()
       this.loadItems()
     },
-    components: { itemRow, inventory, inventoryDeck },
+    components: { itemRow, inventory, inventoryDeck, itemSlotPanel },
     computed: {
       ...mapGetters({
         campaigns: 'campaigns/collection', 

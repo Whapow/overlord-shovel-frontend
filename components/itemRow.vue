@@ -63,11 +63,10 @@
       }),
       save(){
         if (this.formData.name && this.formData.value >= 0 ){
+          this.submitItem({item: this.formData})
           if(this.item.id == 0) {
-            this.submitItem({item: this.formData})
             this.removeItem(0)
           } else {
-            this.updateItem({item: this.formData})
             this.setEditing(false)
           }
         }

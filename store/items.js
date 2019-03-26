@@ -12,7 +12,10 @@ export const state = function(){
 
 export const getters = {
   getField,
-  collection: state => { return state.collection }
+  collection: state => { return state.collection },
+  itemOptions: state => { 
+    return _.map(state.collection, item => { return {value: item.id, name: item.name } }) 
+  }
 }
 
 export const mutations = {

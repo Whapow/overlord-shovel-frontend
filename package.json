@@ -20,6 +20,7 @@
         "pug": "^2.0.3",
         "pug-plain-loader": "^1.0.0",
         "sass-loader": "^7.0.1",
+        "vue-multiselect": "^2.1.4",
         "vuedraggable": "^2.16.0",
         "vuex": "^3.0.1",
         "vuex-map-fields": "^1.2.3"

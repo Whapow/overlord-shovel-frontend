@@ -2,7 +2,14 @@
   .item-slot.panel(v-if="item")
     .edit.grid(v-if="editing")
       label.label Item
-      input.input(type='text', v-model.number="formData.item_id", @keyup.enter="save")
+      //- input.input(type='text', v-model.number="formData.item_id", @keyup.enter="save")
+      multiselect.input(
+        v-model="formData.item_id",
+        :options="itemOptions", 
+        :close-on-select="true"
+        label='name'
+        track-by='name'
+        )
       label.label Inventory
       input.input(type='text', v-model.number="formData.inventory_id", @keyup.enter="save")
       label.label Quantity
@@ -16,6 +23,7 @@
 
 s<script>
   import { mapActions, mapMutations, mapGetters } from 'vuex'
+  import { Multiselect } from 'vue-multiselect'
 
   export default {
     data(){
@@ -30,15 +38,22 @@ s<script>
         this.editing = false
       })
     },
+    components: { Multiselect },
     computed: {
       ...mapGetters({
         itemSlots: 'itemSlots/collection',
         items: 'items/collection',
+        itemOptions: 'items/itemOptions'
       }),
       itemSlot(){ return this.itemSlots[this.selectedItemSlot.id]},
       item(){ return this.items[this.selectedItemSlot.item_id] },
       validated(){
-        return (this.formData.item_id && this.formData.inventory_id && this.formData.quantity)
+        let form = this.formData
+        return (
+          form.item_id && 
+          form.inventory_id && 
+          form.quantity
+        )
       }
     },
     methods: {
@@ -60,7 +75,7 @@ s<script>
             // this.submitItem({itemSlot: this.formData})
             // this.removeItem(0)
           } else {
-            this.updateItem({itemSlot: this.formData})
+            this.submitItem({itemSlot: this.formData})
             this.setEditing(false)
           }
         }

@@ -48,7 +48,7 @@ export const actions = {
         saveEntry(response)
       })
     } else {
-      this.$axios.patch('/entries/' + entry.id, entry).then( response => {
+      this.$axios.put('/entries/' + entry.id, entry).then( response => {
         saveEntry(response)
       })
     }

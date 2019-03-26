@@ -44,7 +44,7 @@ export const actions = {
         saveCampaign(response)
       })
     } else {
-      this.$axios.patch('/campaigns/' + campaign.id, campaign).then( response => {
+      this.$axios.put('/campaigns/' + campaign.id, campaign).then( response => {
         saveCampaign(response)
       })
     }

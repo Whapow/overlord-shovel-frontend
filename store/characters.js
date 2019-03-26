@@ -52,7 +52,7 @@ export const actions = {
         saveCharacter(response)
       })
     } else {
-      this.$axios.patch('/characters/' + character.id, character).then( response => {
+      this.$axios.put('/characters/' + character.id, character).then( response => {
         saveCharacter(response)
       })
     }

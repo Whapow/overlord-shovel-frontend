@@ -40,7 +40,7 @@ export const actions = {
       let user = unpackResponse(response.data)
       commit('update', {user})
     }
-    let request = (user.id == 0 ? this.$axios.post('/users', {user}) : this.$axios.patch(`/users/${user.id}`, {user}) )
+    let request = (user.id == 0 ? this.$axios.post('/users', {user}) : this.$axios.put(`/users/${user.id}`, {user}) )
     request.then(response => {
       saveUser(response)
       commit('updateField', {path: 'errors', value: {} })

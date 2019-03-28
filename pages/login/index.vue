@@ -12,7 +12,7 @@
       .d-flex.justify-content-between
         input.form-check-input(type='checkbox', id="checkbox")
         label.form-check-label(for="checkbox") Remember Me
-        a.text-secondary(href="#") Forgot password?
+        router-link.text-secondary(:to="`/forgot_password`") Forgot password?
     .form-group
       button.btn.btn-dark.btn-block(@click="submitLogin") Sign in
     .form-group

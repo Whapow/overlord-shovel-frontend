@@ -48,5 +48,21 @@ export const actions = {
     }).catch( error => {
       commit('updateField', {path: 'errors', value: error.response.data })
     })
+  },
+  forgotPassword({commit}, {formData, onError}){
+    this.$axios.post('/users/forgot_password', formData).then(response => {
+      this.$router.push('/login')
+    })
+    .catch( error => {
+      onError(error.response.data.error)
+    })
+  },
+  resetPassword({commit}, {formData, onError}){
+    this.$axios.patch(`/users/${formData.id}/reset_password`, formData).then(response => {
+      this.$router.push('/login')
+    })
+    .catch( error => {
+      onError(error.response.data.error)
+    })
   }
 }

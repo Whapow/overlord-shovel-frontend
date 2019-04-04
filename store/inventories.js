@@ -24,11 +24,11 @@ export const mutations = {
   remove(state, id){
     Vue.delete(state.collection, id)
   },
-  moveSlot(state, {itemSlot, from, to}){
+  moveStack(state, {stack, from, to}){
     let source = state.collection[from]
-    let slot = source.item_slots.find((slot)=> { return slot.id == itemSlot.id })
-    source.item_slots.splice(source.item_slots.indexOf(slot),1)
-    state.collection[to].item_slots.splice(0,0,slot)
+    let targetStack = source.stacks.find((targetStack)=> { return targetStack.id == stack.id })
+    source.stacks.splice(source.stacks.indexOf(targetStack),1)
+    state.collection[to].stacks.splice(0,0,targetStack)
   },
 }
 
@@ -65,9 +65,9 @@ export const actions = {
       commit('remove', inventory.id)
     })
   },
-  transferItem({state, commit, dispatch}, {itemSlot, from, to}){
-    dispatch('itemSlots/submit', {itemSlot}, {root:true}).then(()=> {
-      commit('moveSlot', {itemSlot, from, to})
+  transferItem({state, commit, dispatch}, {stack, from, to}){
+    dispatch('stacks/submit', {stack}, {root:true}).then(()=> {
+      commit('moveStack', {stack, from, to})
     })
   }
 }

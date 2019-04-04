@@ -1,7 +1,7 @@
 <template lang='pug'>
-  li.item-slot.grid(v-if="itemSlot", @click="selectItem", :class=`selected ? 'active' : ''`)
+  li.stack.grid(v-if="stack", @click="selectItem", :class=`selected ? 'active' : ''`)
     p.item-name(v-if="item") {{ item.name }}
-    p.item-quantity {{ itemSlot.quantity}}
+    p.item-quantity {{ stack.quantity}}
 </template>
 
 <script>
@@ -9,11 +9,11 @@
   import { mapMutations, mapActions, mapGetters } from 'vuex'
   import { createHelpers } from 'vuex-map-fields'
   const { mapFields } = createHelpers({
-    getterType: 'itemSlots/getField'
+    getterType: 'stacks/getField'
   }) 
 
   export default {
-    props: ['itemSlotReference'],
+    props: ['stackReference'],
     data(){
       return {
         selected: false
@@ -22,17 +22,17 @@
     computed: {
       ...mapGetters({ 
         currentUser: 'session/currentUser',
-        itemSlots: 'itemSlots/collection',
+        stacks: 'stacks/collection',
         items: 'items/collection'
       }),
-      itemSlot(){ return this.itemSlots[this.itemSlotReference.id] },
-      item(){ return this.items[this.itemSlot.item_id] }
+      stack(){ return this.stacks[this.stackReference.id] },
+      item(){ return this.items[this.stack.item_id] }
     },
     methods: {
       selectItem(){
-        this.$nuxt.$emit('selectItemSlot', this.itemSlot)
+        this.$nuxt.$emit('selectStack', this.stack)
         this.selected = true
-        this.$nuxt.$on('selectItemSlot', itemSlot => {
+        this.$nuxt.$on('selectStack', stack => {
           this.selected = false
         })
       },
@@ -41,7 +41,7 @@
 </script>
 
 <style lang="scss" scoped>
-  .item-slot {
+  .stack {
     border-color: black;
     grid-template-rows: repeat(5, 1fr);
     grid-template-columns: repeat(5, 1fr);

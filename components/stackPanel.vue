@@ -1,5 +1,5 @@
 <template lang="pug">
-  .item-slot.panel(v-if="item")
+  .stack.panel(v-if="item")
     .edit.grid(v-if="editing")
       label.label Item
       //- input.input(type='text', v-model.number="formData.item_id", @keyup.enter="save")
@@ -28,25 +28,25 @@ s<script>
   export default {
     data(){
       return {
-        selectedItemSlot: {},
+        selectedStack: {},
         editing: false
       }
     },
     created(){
-      this.$nuxt.$on('selectItemSlot', itemSlot => {
-        this.selectedItemSlot = itemSlot
+      this.$nuxt.$on('selectStack', stack => {
+        this.selectedStack = stack
         this.editing = false
       })
     },
     components: { Multiselect },
     computed: {
       ...mapGetters({
-        itemSlots: 'itemSlots/collection',
+        stacks: 'stacks/collection',
         items: 'items/collection',
         itemOptions: 'items/itemOptions'
       }),
-      itemSlot(){ return this.itemSlots[this.selectedItemSlot.id]},
-      item(){ return this.items[this.selectedItemSlot.item_id] },
+      stack(){ return this.stacks[this.selectedStack.id]},
+      item(){ return this.items[this.selectedStack.item_id] },
       validated(){
         let form = this.formData
         return (
@@ -59,29 +59,29 @@ s<script>
     methods: {
       setEditing(value){
         this.editing = value
-        if (value){ this.formData = _.cloneDeep(this.itemSlot) }
+        if (value){ this.formData = _.cloneDeep(this.stack) }
       },
       ...mapMutations({
-        updateItem: 'itemSlots/update',
-        // removeItem: 'itemSlots/remove'
+        updateItem: 'stacks/update',
+        // removeItem: 'stacks/remove'
       }),
       ...mapActions({
-        submitItem: 'itemSlots/submit',
-        // deleteItem: 'itemSlots/delete'
+        submitItem: 'stacks/submit',
+        // deleteItem: 'stacks/delete'
       }),
       save(){
         if (this.validated){
-          if(this.itemSlot.id == 0) {
-            // this.submitItem({itemSlot: this.formData})
+          if(this.stack.id == 0) {
+            // this.submitItem({stack: this.formData})
             // this.removeItem(0)
           } else {
-            this.submitItem({itemSlot: this.formData})
+            this.submitItem({stack: this.formData})
             this.setEditing(false)
           }
         }
       },
       cancel(){
-        if(this.itemSlot.id == 0){
+        if(this.stack.id == 0){
           // this.removeItem(0)
         } else {
           this.setEditing(false)
@@ -89,7 +89,7 @@ s<script>
       },
       // confirmDelete(){
       //   if (confirm("Are you sure?")){
-      //     this.deleteItem({itemSlot: this.itemSlot})
+      //     this.deleteItem({stack: this.stack})
       //   }
       // }
     }
@@ -98,7 +98,7 @@ s<script>
 
 
 <style lang="scss" scoped>
-  .item-slot {
+  .stack {
     flex-direction: column;
     width: 16rem;
     height: 24rem;

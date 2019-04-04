@@ -8,7 +8,7 @@
     .flex.body
       inventory(v-for="inventory in campaign.inventories", 
         :key="inventory.id", :inventoryReference="inventory", :owner="campaign")
-      item-slot-panel
+      stack-panel
       inventory-deck(:characterCollection="characters(campaign.id)" )
 </template>
 
@@ -20,7 +20,7 @@
   import itemRow from '~/components/itemRow'
   import inventory from '~/components/inventory'
   import inventoryDeck from '~/components/inventoryDeck'
-  import itemSlotPanel from '~/components/itemSlotPanel'
+  import stackPanel from '~/components/stackPanel'
 
   export default {
     layout: 'default',
@@ -28,16 +28,16 @@
       this.loadCharacters(this.$route.params)
       this.loadCampaigns(this.$route.params)
       this.loadInventories(this.$route.params)
-      this.loadItemSlots()
+      this.loadStacks()
       this.loadItems()
     },
-    components: { itemRow, inventory, inventoryDeck, itemSlotPanel },
+    components: { itemRow, inventory, inventoryDeck, stackPanel },
     computed: {
       ...mapGetters({
         campaigns: 'campaigns/collection', 
         characters: 'characters/forCampaign', 
         inventories: 'inventories/collection',
-        itemSlots: 'itemSlots/collection',
+        stacks: 'stacks/collection',
         items: 'items/collection',
       }),
       itemList(){ return _.groupBy(this.items, 'character_id') },
@@ -64,7 +64,7 @@
         loadCampaigns: 'campaigns/init',
         loadCharacters: 'characters/init',
         loadInventories: 'inventories/init',
-        loadItemSlots: 'itemSlots/init',
+        loadStacks: 'stacks/init',
         loadItems: 'items/init',
         addItem:'items/new',
         submitItem: 'items/submit'

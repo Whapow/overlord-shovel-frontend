@@ -1,11 +1,18 @@
 .flex {
   display: flex;
-  border-style: solid;
-  border-color: red;
 }
 
 .grid {
   display: grid;
+}
+
+.page-body {
+  margin-left: 5rem;
+  margin-right: 5rem;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
   border-style: solid;
-  border-color: green;
 }

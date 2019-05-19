@@ -6,7 +6,7 @@
       ul.navbar-nav.dropdown(v-else)
         li.nav-item.active
           router-link.nav-link(to="/login") Sign in
-    .container      
+    .flex.page-body      
       nuxt
 </template>
 

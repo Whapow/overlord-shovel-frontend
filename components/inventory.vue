@@ -1,7 +1,8 @@
 <template lang="pug">
   .inventory-panel
     .panel(v-if="inventory")
-      h4 {{ inventory.name }}
+      .panel-header
+        span.inventory-title {{ inventory.name }}
       //- p {{ inventory | totalValue }}g
       draggable.grid.inventory(@end="moveItem", :value="inventory.stacks", :options="{group: 'stacks'}", :id="inventory.id" )
         stack.item(v-for="stack in inventory.stacks", v-if="stacks[stack.id]", 
@@ -55,18 +56,23 @@
 </script>
 
 <style lang="scss" scoped>
+  .inventory-panel {
+    border-style: solid;
+  }
   .inventory {
     padding: 0;
     margin: 0;
     grid-template-rows: repeat(5, 1fr);
     grid-template-columns: repeat(5, 1fr);
-
   }
   .item {
     min-height: 5rem;
     min-width: 5rem;
     max-height: 5rem;
     max-width: 5rem;
+  }
+  .inventory-title {
+    font-size: 1.5rem;
   }
 
 </style>

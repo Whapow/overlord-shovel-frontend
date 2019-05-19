@@ -35,7 +35,6 @@
 <style lang="scss" scoped>
   .inventory-deck {
     flex-direction: row;
-    border-color: blue;
   }
   .portrait-tabs {
     flex-direction: column;
@@ -46,11 +45,9 @@
     line-height: 5rem;
     text-align: center;
     border-style: solid;
-    border-color: yellow;
     background-color: white;
     &.active{
       background-color: lightgray;
-      border-color: orange;
     }
   }
 </style>

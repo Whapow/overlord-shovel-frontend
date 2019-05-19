@@ -100,13 +100,11 @@ s<script>
 <style lang="scss" scoped>
   .stack {
     flex-direction: column;
-    width: 16rem;
+    width: 24rem;
     height: 24rem;
     border: solid;
-    border-color: pink;
   }
   .display{
-    border-color: green;
     grid-template-rows: 2rem repeat(5, 1fr);
     grid-template-columns: repeat(3, 1fr) 3rem;
   }
@@ -124,11 +122,16 @@ s<script>
     width: 8rem;
   }
   .item-name {
+    font-size: 1.5rem;
     grid-column: 1 / 3;
     grid-row: 1 / 3;
   }
   .edit-button {
     grid-column: 4;
+    grid-row: 1;
+  }
+  .close-button {
+    grid-column: 5;
     grid-row: 1;
   }
   .save{

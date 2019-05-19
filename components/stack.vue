@@ -42,7 +42,8 @@
 
 <style lang="scss" scoped>
   .stack {
-    border-color: black;
+    border-color: grey;
+    border-style: solid;
     grid-template-rows: repeat(5, 1fr);
     grid-template-columns: repeat(5, 1fr);
     &.active{

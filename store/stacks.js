@@ -46,7 +46,7 @@ export const actions = {
     commit('update', {stack})
     commit('select', stack)
   },
-  submit({commit}, {stack}){
+  async submit({commit, dispatch}, {stack}){
     let saveStack = (response)=>{
       let responseData = response.data.data
       let stack = {
@@ -54,16 +54,37 @@ export const actions = {
         item: responseData.relationships.item.data
       }
       commit('update', {stack})
+      dispatch('inventories/get', stack.inventory_id, {root: true})
     }
-    if (stack.id == 0){
-      this.$axios.post('/stacks', stack).then(response => {
-        saveStack(response)
-      })
-    } else { 
-      this.$axios.patch('/stacks/' + stack.id, stack).then(response => {
-        saveStack(response)
-      })
+
+    let submitStack = (stack) => {
+      if (stack.id == 0){
+        this.$axios.post('/stacks', stack).then(response => {
+          saveStack(response)
+        })
+      } else { 
+        this.$axios.patch('/stacks/' + stack.id, stack).then(response => {
+          saveStack(response)
+        })
+      }
     }
+
+    if (stack.item) {
+      let item = stack.item
+      if (item.id == 0){
+        let callback = (item)=> {
+          stack.item_id = item.id
+          submitStack(stack)
+        }
+        await dispatch('items/submit', {item, callback}, {root: true})
+      } else {
+        stack.item_id = item.id
+        submitStack(stack)
+      }
+    } else {
+      submitStack(stack)
+    }
+    
   },
   delete({commit}, {stack}) {
     this.$axios.delete('/stacks/' + stack.id).then(response => {

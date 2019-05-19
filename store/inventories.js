@@ -41,6 +41,12 @@ export const actions = {
       commit('updateField', {path: 'collection', value: inventories })
     })
   },
+  async get({commit}, id){
+    await this.$axios.get(`/inventories/${id}`).then(response => {
+      let inventory = unpackResponse(response.data)
+      commit('update', {inventory})
+    })
+  },
   new({commit}){
     let inventory = {id: 0, name: null, owner_id: null, owner_type: null}
     commit('update', {inventory})

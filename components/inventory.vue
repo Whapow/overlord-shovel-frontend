@@ -3,6 +3,7 @@
     .panel(v-if="inventory")
       .panel-header
         span.inventory-title {{ inventory.name }}
+        button(@click="newStack") +
       //- p {{ inventory | totalValue }}g
       draggable.grid.inventory(@end="moveItem", :value="inventory.stacks", :options="{group: 'stacks'}", :id="inventory.id" )
         stack.item(v-for="stack in inventory.stacks", v-if="stacks[stack.id]", 
@@ -32,6 +33,7 @@
     methods:{
       ...mapActions({
         transferItem: 'inventories/transferItem',
+        addStack: 'stacks/new',
       }),
       moveItem(event){
         if (event.from != event.to){
@@ -39,6 +41,9 @@
           stack.inventory_id = event.to.id
           this.transferItem({stack, from: event.from.id, to: event.to.id})
         }
+      },
+      newStack(){
+        this.addStack(this.inventory)
       }
     },
     filters: {

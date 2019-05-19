@@ -6,13 +6,15 @@ import { unpackResponse } from '~/helpers/helpers'
 export const state = function(){
   return ({
     collection: {},
+    active: null,
     currentUser: {},
   })
 }
 
 export const getters = {
   getField,
-  collection: state => { return state.collection }
+  collection: state => { return state.collection },
+  active: state => { return state.active }
 }
 
 export const mutations = {
@@ -21,7 +23,14 @@ export const mutations = {
     Vue.set(state.collection, stack.id, stack)
   },
   remove(state, id){
+    if(id == state.active.id){ Vue.delete(state, 'active') }
     Vue.delete(state.collection, id)
+  },
+  select(state, stack){
+    Vue.set(state, 'active', stack)
+  },
+  clear(state){
+    Vue.delete(state, 'active')
   }
 }
 
@@ -32,9 +41,10 @@ export const actions = {
       commit('updateField', {path: 'collection', value: stacks })
     })
   },
-  new({commit}){
-    let stack = {id: 0, inventory_id: null, item_id: null}
+  new({commit}, inventory ){
+    let stack = {id: 0, inventory_id: inventory.id, item_id: null}
     commit('update', {stack})
+    commit('select', stack)
   },
   submit({commit}, {stack}){
     let saveStack = (response)=>{

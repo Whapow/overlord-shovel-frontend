@@ -1,5 +1,5 @@
 <template lang='pug'>
-  li.stack.grid(v-if="stack", @click="selectItem", :class=`selected ? 'active' : ''`)
+  li.stack.grid(v-if="stack", @click="selectStack", :class=`selected ? 'active' : ''`)
     p.item-name(v-if="item") {{ item.name }}
     p.item-quantity {{ stack.quantity}}
 </template>
@@ -14,27 +14,23 @@
 
   export default {
     props: ['stackReference'],
-    data(){
-      return {
-        selected: false
-      }
-    },
     computed: {
       ...mapGetters({ 
         currentUser: 'session/currentUser',
         stacks: 'stacks/collection',
+        selectedStack: 'stacks/active',
         items: 'items/collection'
       }),
       stack(){ return this.stacks[this.stackReference.id] },
-      item(){ return this.items[this.stack.item_id] }
+      item(){ return this.items[this.stack.item_id] },
+      selected(){ return this.selectedStack == this.stack }
     },
     methods: {
-      selectItem(){
-        this.$nuxt.$emit('selectStack', this.stack)
-        this.selected = true
-        this.$nuxt.$on('selectStack', stack => {
-          this.selected = false
-        })
+      ...mapMutations({
+        select: 'stacks/select'
+      }),
+      selectStack(){
+        this.select(this.stack)
       },
     }
   }

@@ -23,6 +23,13 @@
       p.item-name {{ item ? item.name : 'Unknown Item' }}
       button.edit-button(@click="setEditing(true)") Edit
       button.close-button(@click="clearPanel") Close
+      label(style="padding-right: 1rem") Value:
+      span {{ item.value * stack.quantity }}
+      label(style="padding-right: 1rem") Quantity:
+      span {{ stack.quantity }}
+      label(style="padding-right: 1rem") Description:
+      span.description {{ item.description }}
+
 </template>
 
 s<script>
@@ -130,6 +137,7 @@ s<script>
   .show{
     grid-template-rows: 2rem repeat(5, 1fr);
     grid-template-columns: repeat(3, 1fr) 3rem;
+    align-content: center;
   }
   .edit-button {
     grid-column: 4;
@@ -167,5 +175,9 @@ s<script>
     justify-content: space-around;
     grid-row-start: 3;
     grid-column-start: 2;
+  }
+  .description {
+    grid-column: 2 / 6;
+    grid-row: 5 / 7;
   }
 </style>

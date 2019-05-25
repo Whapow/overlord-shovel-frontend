@@ -27,7 +27,6 @@
       span {{ item.value * stack.quantity }}
       label(style="padding-right: 1rem") Quantity:
       span {{ stack.quantity }}
-      label(style="padding-right: 1rem") Description:
       span.description {{ item.description }}
 
 </template>

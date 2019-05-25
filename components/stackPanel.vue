@@ -131,11 +131,12 @@ s<script>
   }
   .item-name {
     font-size: 1.5rem;
-    grid-column: 1 / 3;
+    grid-column: 1 / 4;
     grid-row: 1 / 3;
+    margin-bottom: 0px;
   }
   .show{
-    grid-template-rows: 2rem repeat(5, 1fr);
+    grid-template-rows: 2rem, 1fr repeat(4, 2rem);
     grid-template-columns: repeat(3, 1fr) 3rem;
     align-content: center;
   }

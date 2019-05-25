@@ -23,10 +23,10 @@
       p.item-name {{ item ? item.name : 'Unknown Item' }}
       button.edit-button(@click="setEditing(true)") Edit
       button.close-button(@click="clearPanel") Close
-      label(style="padding-right: 1rem") Value:
-      span {{ item.value * stack.quantity }}
-      label(style="padding-right: 1rem") Quantity:
-      span {{ stack.quantity }}
+      label.value Value:
+      span.value {{ item.value * stack.quantity }}
+      label.quantity Quantity:
+      span.quantity {{ stack.quantity }}
       span.description {{ item.description }}
 
 </template>
@@ -135,9 +135,21 @@ s<script>
     margin-bottom: 0px;
   }
   .show{
-    grid-template-rows: 2rem, 1fr repeat(4, 2rem);
+    grid-template-rows: 2rem 1fr repeat(4, 2rem) 1fr;
     grid-template-columns: repeat(3, 1fr) 3rem;
     align-content: center;
+    & .value{
+      padding-right: 1rem;
+      grid-row-start: 4;
+    }
+    & .quantity{
+      padding-right: 1rem;
+      grid-row-start: 5;
+    }
+    & .description {
+      grid-column: 2 / 7;
+      grid-row: 6 / 8;
+    }
   }
   .edit-button {
     grid-column: 4;
@@ -152,6 +164,9 @@ s<script>
     grid-template-rows: repeat(3, 3rem);
     grid-gap: 1rem;
     justify-items: start;
+    & .quantity {
+      grid-row-start: 2;
+    }
   }
   .top-right{
     grid-column-start: 3;
@@ -164,9 +179,6 @@ s<script>
   .item {
     grid-row-start: 1;
   }
-  .quantity {
-    grid-row-start: 2;
-  }
   .input {
     grid-column-start: 2;
     max-height: 2rem;
@@ -175,9 +187,5 @@ s<script>
     justify-content: space-around;
     grid-row-start: 3;
     grid-column-start: 2;
-  }
-  .description {
-    grid-column: 2 / 6;
-    grid-row: 5 / 7;
   }
 </style>

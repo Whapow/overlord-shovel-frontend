@@ -48,6 +48,7 @@
     }
   }
   .item-name {
+    font-size: 0.75rem;
     grid-column: 1 / 4;
     grid-row: 1 / 5;
   }

@@ -6,7 +6,7 @@
       .portrait(v-for="character in characterCollection" 
         @click="selectCharacter(character)", 
         :class=`character == activeCharacter ? 'active' : ''`
-        ) {{ character.name }}
+        ) {{ character.name | shortName }}
 </template>
 
 <script>
@@ -27,6 +27,13 @@
     methods: {
       selectCharacter(character){
         this.selectedCharacter = character
+      }
+    },
+    filters: {
+      shortName(name){
+        const matches = /^(.+)\s/.exec(name)
+        const firstName = matches ? matches[1] : name
+        return  firstName.substring(0,6) + (firstName.length > 6 ? ".." : "")
       }
     }  
   }

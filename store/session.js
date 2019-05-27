@@ -20,7 +20,7 @@ export const actions = {
   async login({commit}, loginParams){
     await this.$auth.loginWith('local', {data: {session: loginParams}})
     .then(() => {
-      this.$router.push('/')
+      this.$auth.redirect('home')
     }).catch(e => {
       commit('updateField', {path: 'errorMessage', value: 'Could not login'})
     })
@@ -30,14 +30,14 @@ export const actions = {
     this.$axios.get('/session').then(response => {
       let session = unpackResponse(response.data)
       commit('updateField', {path: 'session', value: session})
-      dispatch('users/get', session.user_id, {root: true})  
+      dispatch('users/get', session.user_id, {root: true})
     })
   },
   
   async logout({commit}){
     await this.$auth.logout().then(response => {
       commit('updateField', {path: 'session', value: {}})
-      this.$router.push('/login')
+      this.$auth.redirect('login')
     })
   }
 }

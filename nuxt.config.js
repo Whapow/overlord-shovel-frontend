@@ -19,7 +19,8 @@ module.exports = {
       login: '/login',
       logout: '/',
       callback: '/login',
-      home: '/'
+      home: '/',
+      user: '/profile'
     },
     strategies: {
       local: {

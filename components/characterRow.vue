@@ -2,7 +2,7 @@
   tr.character
     template(v-if="editing")
       td.column
-        input(type='text', v-model.trim="formData.name")
+        input(type='text', v-model.trim="formData.name", @keyup.enter="save")
       td.column
         select(v-model="formData.campaign_id")
           option(:value="null") None

@@ -12,7 +12,8 @@ module.exports = {
     cookie: {
       prefix: 'auth.',
       options: {
-        path: '/'
+        path: '/',
+        expires: 15
       }
     },
     redirect: {

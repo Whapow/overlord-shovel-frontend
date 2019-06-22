@@ -13,12 +13,11 @@
 <script>
   import { mapGetters, mapActions } from 'vuex'
   import draggable from 'vuedraggable'
-  import itemRow from '~/components/itemRow'
   import stack from '~/components/stack'
 
   export default {
     props: ['inventoryReference', 'owner'],
-    components: {draggable, itemRow, stack},
+    components: {draggable, stack},
     computed: {
       ...mapGetters({
         currentUser: 'session/currentUser',

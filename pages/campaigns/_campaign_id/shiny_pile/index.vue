@@ -17,7 +17,6 @@
   import { createHelpers } from 'vuex-map-fields'
 
   import _ from 'lodash'
-  import itemRow from '~/components/itemRow'
   import inventory from '~/components/inventory'
   import inventoryDeck from '~/components/inventoryDeck'
   import stackPanel from '~/components/stackPanel'
@@ -31,7 +30,7 @@
       this.loadStacks()
       this.loadItems()
     },
-    components: { itemRow, inventory, inventoryDeck, stackPanel },
+    components: { inventory, inventoryDeck, stackPanel },
     computed: {
       ...mapGetters({
         campaigns: 'campaigns/collection', 

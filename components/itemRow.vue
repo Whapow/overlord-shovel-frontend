@@ -7,6 +7,8 @@
         input(type='text', v-model.trim="formData.description")
       td.column
         input(type='text', v-model.number="formData.value", @keyup.enter="save")
+      td.column
+        input(type="checkbox", v-model="formData.consumable")  
       td
         button.btn.btn-primary(@click="save") Save
         button.btn.btn-light(@click="cancel") Cancel
@@ -17,6 +19,8 @@
         i {{ item.description }}
       td.column
         p {{ item.value }}
+      td.column
+        p {{ item.consumable }}  
       td
         button.btn.btn-light(@click="setEditing(true)") Edit
         button.btn.btn-danger(v-if="session.user.id == campaign.gm_id", @click="confirmDelete") Delete

@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import { getField, updateField } from 'vuex-map-fields'
-import { unpackResponse } from '~/helpers/helpers'
+import { shovel } from '~/helpers/shovel'
 
 export const state = function(){
   return ({
@@ -25,19 +25,19 @@ export const mutations = {
 export const actions = {
   async init({commit}){
     await this.$axios.get('/users').then(response => {
-      let users = unpackResponse(response.data)
+      let users = shovel(response.data)
       commit('updateField', {path: 'collection', value: users })
     })
   },
   get({commit}, userId){
     this.$axios.get(`/users/${userId}`).then(response => {
-      let user = unpackResponse(response.data)
+      let user = shovel(response.data)
       commit('update', {user})
     })
   },
   submit({commit}, {user, callback}){
     let saveUser = (response)=>{
-      let user = unpackResponse(response.data)
+      let user = shovel(response.data)
       commit('update', {user})
     }
     let request = (user.id == 0 ? this.$axios.post('/users', {user}) : this.$axios.put(`/users/${user.id}`, {user}) )

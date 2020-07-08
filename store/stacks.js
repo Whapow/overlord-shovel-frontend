@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import _ from 'lodash'
 import { getField, updateField } from 'vuex-map-fields'
-import { unpackResponse } from '~/helpers/helpers'
+import { shovel } from '~/helpers/shovel'
 
 export const state = function(){
   return ({
@@ -37,7 +37,7 @@ export const mutations = {
 export const actions = {
   async init({commit}){   
     await this.$axios.get(`/stacks`).then(response => {
-      let stacks = unpackResponse(response.data)
+      let stacks = shovel(response.data)
       commit('updateField', {path: 'collection', value: stacks })
     })
   },

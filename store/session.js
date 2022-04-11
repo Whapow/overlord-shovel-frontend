@@ -1,5 +1,5 @@
 import { getField, updateField } from 'vuex-map-fields'
-import { unpackResponse } from '~/helpers/helpers'
+import { shovel } from '~/helpers/shovel'
 
 export const state = function(){
   return ({
@@ -28,7 +28,7 @@ export const actions = {
   
   get({commit, dispatch}){
     this.$axios.get('/session').then(response => {
-      let session = unpackResponse(response.data)
+      let session = shovel(response.data)
       commit('updateField', {path: 'session', value: session})
       dispatch('users/get', session.user_id, {root: true})
     })
